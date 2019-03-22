@@ -6,6 +6,7 @@ module.exports = (client, message) => {
   let args = message.content.slice(prefix.length).trim().split(' ');
   let cmd = args.shift().toLowerCase();
 
+  let skipFinally = false;
   try {
     // Auto-Reload (You should move this into it's own command)
     delete require.cache[require.resolve(`./../commands/${cmd}.js`)];
@@ -22,10 +23,12 @@ module.exports = (client, message) => {
       console.log(`Start error | ${message.createdAt} \r\n ${e.stack}`);
     } else {
       console.log(`${message.author.tag} ran an unknown command: ${prefix}${cmd} ${args} | ${message.createdAt}`);
-      break;
+      skipFinally = true;
     }
 
   } finally {
-    console.log(`${message.author.tag} ran the command: ${prefix}${cmd} ${args} | ${message.createdAt}`);
+    if (!skipFinally){
+      console.log(`${message.author.tag} ran the command: ${prefix}${cmd} ${args} | ${message.createdAt}`);
+    }
   }
 }
