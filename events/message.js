@@ -19,8 +19,10 @@ module.exports = (client, message) => {
   } catch (e) {
     if (e.code !== 'MODULE_NOT_FOUND') {
       console.log(`Start error | ${message.createdAt} \r\n ${e.stack}`);
+      return;
     } else {
       console.log(`${message.author.tag} ran an unknown command: ${cmd} ${args} | ${message.createdAt}`);
+      return;
     }
 
   } finally {
