@@ -4,19 +4,22 @@ const fs = require('fs');
 try {
   const config = require("./config.json");
 } catch (e) {
-  try {
-    var configuration = `{
-      "token": ${process.env.token},
-      "ops": ${process.env.ops},
-      "prefix": ${process.env.prefix}
-    }`;
-    configuration = JSON.stringify(configuration);
-
-    const config = JSON.parse(configuration);
-  } catch (e) {
-    console.log(e.stack);
-  }
   console.log(e.stack);
+}
+if (!config){
+try {
+  var configuration = `{
+    "token": ${process.env.token},
+    "ops": ${process.env.ops},
+    "prefix": ${process.env.prefix}
+  }`;
+  configuration = JSON.stringify(configuration);
+
+  const config = JSON.parse(configuration);
+} catch (e) {
+  console.log("rare error");
+  console.log(e.stack);
+}
 }
 //Commands
 client.commands = new Discord.Collection();
