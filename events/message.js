@@ -1,8 +1,9 @@
 module.exports = (client, message) => {
+  let prefix = process.env.client_prefix;
   if (message.author.bot) return; //this will ignore all bots
-  if (!message.content.startsWith(process.env.config_prefix)) return; //not starting with prefix
+  if (!message.content.startsWith(prefix)) return; //not starting with prefix
 
-  let args = message.content.slice(process.env.config_prefix.length).trim().split(' ');
+  let args = message.content.slice(prefix.length).trim().split(' ');
   let cmd = args.shift().toLowerCase();
 
   let skipFinally = false;
@@ -21,13 +22,13 @@ module.exports = (client, message) => {
     if (e.code !== 'MODULE_NOT_FOUND') {
       console.log(`Start error | ${message.createdAt} \r\n ${e.stack}`);
     } else {
-      console.log(`${message.author.tag} ran an unknown command: ${process.env.config_prefix}${cmd} ${args} | ${message.createdAt}`);
+      console.log(`${message.author.tag} ran an unknown command: ${prefix}${cmd} ${args} | ${message.createdAt}`);
       skipFinally = true;
     }
 
   } finally {
     if (!skipFinally){
-      console.log(`${message.author.tag} ran the command: ${process.env.config_prefix}${cmd} ${args} | ${message.createdAt}`);
+      console.log(`${message.author.tag} ran the command: ${prefix}${cmd} ${args} | ${message.createdAt}`);
     }
   }
 }
