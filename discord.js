@@ -5,11 +5,11 @@ try {
   const config = require("./config.json");
 } catch (e) {
   try {
-    var configuration = '{
+    var configuration = {
       "token": process.env.token,
       "ops": process.env.ops,
       "prefix": process.env.prefix
-    }';
+    };
     const config = JSON.parse(configuration);
   } catch (e) {
     console.log(e.stack);
