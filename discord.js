@@ -5,9 +5,12 @@ try {
 const config = require("./config.json");
 } catch (e) {
   try {
-    const config.prefix = process.env.prefix;
-    const config.ops = process.env.ops;
-    const config.token = process.env.token;
+    var configuration = {
+      "token": process.env.token,
+      "ops": process.env.ops,
+      "prefix": process.env.prefix
+    };
+    const config = JSON.parse(configuration);
   } catch (e) {
     console.log(e.stack);
   }
