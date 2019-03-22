@@ -6,7 +6,7 @@ try {
 } catch (e) {
   console.log(e.stack);
 }
-if (!config){
+if (typeof config === 'undefined'){
 try {
   var configuration = `{
     "token": ${process.env.token},
