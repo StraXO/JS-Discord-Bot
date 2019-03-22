@@ -1,0 +1,2 @@
+# WeebMaster
+Discord Bot
