@@ -20,10 +20,10 @@ module.exports = (client, message) => {
     if (e.code !== 'MODULE_NOT_FOUND') {
       console.log(`Start error | ${message.createdAt} \r\n ${e.stack}`);
     } else {
-      console.log(`${message.author.tag} ran an unknown command: ${cmd} | ${message.createdAt}`);
+      console.log(`${message.author.tag} ran an unknown command: ${cmd} ${args} | ${message.createdAt}`);
     }
 
   } finally {
-    console.log(`${message.author.tag} ran the command: ${cmd} | ${message.createdAt}`);
+    console.log(`${message.author.tag} ran the command: ${cmd} ${args} | ${message.createdAt}`);
   }
 }
