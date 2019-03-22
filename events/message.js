@@ -1,10 +1,8 @@
 module.exports = (client, message) => {
-  const config = require("./../config.json");
-
   if (message.author.bot) return; //this will ignore all bots
-  if (!message.content.startsWith(config.prefix)) return; //not starting with prefix
+  if (!message.content.startsWith(process.env.client_prefix)) return; //not starting with prefix
 
-  let args = message.content.slice(config.prefix.length).trim().split(' ');
+  let args = message.content.slice(process.env.client_prefix.length).trim().split(' ');
   let cmd = args.shift().toLowerCase();
 
   try {
@@ -12,7 +10,7 @@ module.exports = (client, message) => {
     delete require.cache[require.resolve(`./../commands/${cmd}.js`)];
 
     let ops = {
-      ownerID: config.ownerID
+      ownerID: process.env.client_ops
     }
 
     let commandFile = require(`./../commands/${cmd}.js`); //tries to find the required command

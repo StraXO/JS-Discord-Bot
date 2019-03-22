@@ -1,26 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
-try {
-  const config = require("./config.json");
-} catch (e) {
-  console.log(e.stack);
-}
-if (typeof config === 'undefined'){
-try {
-  var configuration = `{
-    "token": ${process.env.token},
-    "ops": ${process.env.ops},
-    "prefix": ${process.env.prefix}
-  }`;
-  configuration = JSON.stringify(configuration);
 
-  const config = JSON.parse(configuration);
-} catch (e) {
-  console.log("rare error");
-  console.log(e.stack);
-}
-}
 //Commands
 client.commands = new Discord.Collection();
 
@@ -30,6 +11,5 @@ client.commands.set('rip', require('./commands/rip.js'));
 
 client.on('ready', () => require('./events/ready.js')(client));
 client.on('message', message => require('./events/message.js')(client, message));
-
-
-client.login(config.token);
+console.log(process.env.client_token);
+client.login(process.env.config_token);
