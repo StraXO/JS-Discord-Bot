@@ -1,9 +1,19 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
-
+try {
 const config = require("./config.json");
-
+} catch (e) {
+  try {
+    const config;
+    config.token = process.env.token;
+    config.ops = process.env.ops;
+    config.prefix = process.env.prefix;
+  } catch (e) {
+    console.log(e.stack);
+  }
+  console.log(e.stack);
+}
 //Commands
 client.commands = new Discord.Collection();
 
