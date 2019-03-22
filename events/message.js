@@ -18,8 +18,6 @@ module.exports = (client, message) => {
     let commandFile = require(`./../commands/${cmd}.js`); //tries to find the required command
     commandFile.run(client, message, args, ops); //execute command with parameters
 
-
-
   } catch (e) {
     if (e.code !== 'MODULE_NOT_FOUND') {
       console.log(`Start error | ${message.createdAt} \r\n ${e.stack}`);

@@ -1,0 +1,27 @@
+{
+  "name": "weebmaster",
+  "version": "1.0.0",
+  "description": "discord bot",
+  "main": "discord.js",
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StraXO/WeebMaster.git"
+  },
+  "keywords": [
+    "discord",
+    "bot"
+  ],
+  "author": "StraX",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StraXO/WeebMaster/issues"
+  },
+  "homepage": "https://github.com/StraXO/WeebMaster#readme"
+}
