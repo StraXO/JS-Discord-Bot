@@ -8,8 +8,8 @@ module.exports = (client, message) => {
 
   let skipFinally = false;
   try {
-    // Auto-Reload (You should move this into it's own command)
-    delete require.cache[require.resolve(`./../commands/${cmd}.js`)];
+    // Auto-Reload (You should move this into it's own command) done?
+    //delete require.cache[require.resolve(`./../commands/${cmd}.js`)];
 
     let ops = {
       ownerID: process.env.client_ops

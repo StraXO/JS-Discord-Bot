@@ -1,7 +1,7 @@
 module.exports = client => {
   console.log(`Logged in as: ${client.user.tag}`);
 
-  client.user.setActivity(`Currently serving ${client.guilds.size} servers`, {type: "WATCHING"});
+  client.user.setActivity(`Currently serving ${client.guilds.size} servers`);
 
   console.log(`Servers: ${client.guilds.size} Users: ${client.users.size}`);
   client.guilds.forEach((guild) => {
