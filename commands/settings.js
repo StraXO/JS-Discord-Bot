@@ -20,10 +20,10 @@ exports.run = (client, message, args, guildConf) => {
       message.channel.send(`The following are the server's current configuration:
       \`\`\`${configProps}\`\`\``);
     } else if (prop === "prefix") {
-      if (prop.length > 0 && prop.length <= 5) {
+      if (prop[1].length > 0 && prop[1].length <= 5) {
         client.settings.set(message.guild.id, value.join(" "), prop);
       } else {
-        message.reply(`Useage: ${guildConf.prefix}prefix [Any text, at most 5 characters (e.g. -)]`);
+        message.reply(`Useage: ${guildConf.prefix}settings prefix [Any text, at most 5 characters (e.g. -)]`);
       }
     } else if (!client.settings.has(message.guild.id, prop)) {
       return message.reply(`This is not a valid setting, use ${guildConf.prefix}settings`);
