@@ -23,7 +23,12 @@ exports.run = (client, message, args, guildConf) => {
 
     } else if (prop === "prefix") {
       //show settings for prefix
-      if (value[0].length > 0 && value[0].length <= 5) {
+      try {
+        let arguments = value[0].length;
+      } catch (e) {
+        arguments = 0;
+      }
+      if (arguments > 0 && arguments <= 5) {
         client.settings.set(message.guild.id, value.join(" "), prop);
         message.channel.send(`The prefix has been changed to ${value}`);
       } else {
