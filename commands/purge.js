@@ -3,11 +3,11 @@ exports.run = async(client, message, args) => {
       //    1. Check if the user has enough permissions
       //    2. Check if I have the permission to execute the command
 
-      if (!message.channel.permissionsFor(message.author).hasPermission("MANAGE_MESSAGES")) {
+      if (!message.channel.permissionsFor(message.author).has("MANAGE_MESSAGES")) {
         message.channel.send("Sorry, you don't have the permission to execute the command \""+message.content+"\"");
         console.log("Sorry, you don't have the permission to execute the command \""+message.content+"\"");
         return;
-      } else if (!message.channel.permissionsFor(client.user).hasPermission("MANAGE_MESSAGES")) {
+      } else if (!message.channel.permissionsFor(client.user).has("MANAGE_MESSAGES")) {
         message.channel.send("Sorry, I don't have the permission to execute the command \""+message.content+"\"");
         console.log("Sorry, I don't have the permission to execute the command \""+message.content+"\"");
         return;
@@ -26,17 +26,19 @@ exports.run = async(client, message, args) => {
               messagesDeleted = messages.array().length; // number of messages deleted
 
               // Logging the number of messages deleted on both the channel and console.
-              message.channel.send("Deletion of messages successful. Total messages deleted: "+messagesDeleted);
-              console.log('Deletion of messages successful. Total messages deleted: '+messagesDeleted)
+              message.channel.send(`Deletion of messages successful. Total messages deleted: ${messagesDeleted}`);
+              console.log(`Deletion of messages successful. Total messages deleted: ${messagesDeleted} | ${client.guild.name}`);
             })
             .catch(err => {
               console.log('Error while doing Bulk Delete');
               console.log(err);
             });
         } else if (deleteAmount < 1 || deleteAmount > 100) {
-            message.channel.send(`Cannot delete ${deleteAmount} messages. Please use a value between 1 and ${deleteMax}`);
+            message.channel.send(`Please enter a valid number, useage: ${process.env.client_prefix}purge (1 - ${deleteMax})`);
+        } else {
+          message.channel.send(`Please enter a valid number, useage: ${process.env.client_prefix}purge (1 - ${deleteMax})`);
         }
       } else {
-        message.channel.send("Please enter a valid number");
+        message.channel.send(`Please enter a valid number, useage: ${process.env.client_prefix}purge (1 - ${deleteMax})`);
       }
 }
