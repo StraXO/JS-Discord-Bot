@@ -18,22 +18,25 @@ exports.run = async(client, message, args) => {
       let deleteAmount = parseInt(args[0], 10);
       let deleteMax = 20;
 
-      if (message.channel.type == 'text' && deleteAmount > 0 && deleteAmount < deleteMax+1) {
-        message.channel.fetchMessages({limit: deleteAmount + 2})
-          .then(messages => {
-            message.channel.bulkDelete(messages);
-            messagesDeleted = messages.array().length; // number of messages deleted
+      if (!isNan(deleteAmount)) {
+        if (message.channel.type == 'text' && deleteAmount > 0 && deleteAmount < deleteMax+1) {
+          message.channel.fetchMessages({limit: deleteAmount + 2})
+            .then(messages => {
+              message.channel.bulkDelete(messages);
+              messagesDeleted = messages.array().length; // number of messages deleted
 
-            // Logging the number of messages deleted on both the channel and console.
-            message.channel.send("Deletion of messages successful. Total messages deleted: "+messagesDeleted-2);
-            console.log('Deletion of messages successful. Total messages deleted: '+messagesDeleted-2)
-          })
-          .catch(err => {
-            console.log('Error while doing Bulk Delete');
-            console.log(err);
-          });
-      } else if (deleteAmount < 1 || deleteAmount > 100) {
-          message.channel.send(`Cannot delete ${deleteAmount} messages. Please use a value between 1 and ${deleteMax}`);
+              // Logging the number of messages deleted on both the channel and console.
+              message.channel.send("Deletion of messages successful. Total messages deleted: "+messagesDeleted);
+              console.log('Deletion of messages successful. Total messages deleted: '+messagesDeleted)
+            })
+            .catch(err => {
+              console.log('Error while doing Bulk Delete');
+              console.log(err);
+            });
+        } else if (deleteAmount < 1 || deleteAmount > 100) {
+            message.channel.send(`Cannot delete ${deleteAmount} messages. Please use a value between 1 and ${deleteMax}`);
+        }
+      } else {
+        message.channel.send("Please enter a valid number");
       }
-
 }
