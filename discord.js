@@ -18,3 +18,5 @@ client.on("guildDelete", guild => require('.events/guildDelete.js')(client, guil
 
 
 client.login(process.env.client_token);
+
+//todo: permissions
