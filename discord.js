@@ -33,5 +33,3 @@ if (!token) {
 }
 
 client.login(token);
-
-//todo: permissions
