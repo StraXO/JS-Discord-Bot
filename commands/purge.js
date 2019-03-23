@@ -16,9 +16,9 @@ exports.run = async(client, message, args) => {
       // Only delete messages if the channel type is TextChannel
       // DO NOT delete messages in DM Channel or Group DM Channel
       let deleteAmount = parseInt(args[0], 10);
-      let deleteMax = 20;
+      let deleteMax = 100;
 
-      if (!isNan(deleteAmount)) {
+      if (deleteAmount !== typeof(NaN)) {
         if (message.channel.type == 'text' && deleteAmount > 0 && deleteAmount < deleteMax+1) {
           message.channel.fetchMessages({limit: deleteAmount + 2})
             .then(messages => {
