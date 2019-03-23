@@ -1,14 +1,15 @@
-exports.run = (client, message, args) => {
-if (!message.mentions.users.size) {
-		return message.channel.send(`Your avatar: <${message.author.displayAvatarURL}>`);
+exports.run = (client, message, args, ops) => {
+	if (message.author.id === ops.ownerID) {
+		if (!message.mentions.users.size) {
+			return message.channel.send(`Your avatar: <${message.author.displayAvatarURL}>`);
+		}
+		//multiple users
+		const avatarList = message.mentions.users.map(user => {
+			return `${user.username}'s avatar: <${user.displayAvatarURL}>`;
+		});
+
+		message.channel.send(avatarList);
+	} else {
+		message.channel.send("You have insifficient permissions to run this command");
 	}
-
-	const avatarList = message.mentions.users.map(user => {
-		return `${user.username}'s avatar: <${user.displayAvatarURL}>`;
-	});
-
-	// send the entire array of strings as a message
-	// by default, discord.js will `.join()` the array with `\n`
-	let file =
-	message.channel.send(avatarList);
 }
