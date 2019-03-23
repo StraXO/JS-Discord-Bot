@@ -14,18 +14,22 @@ exports.run = (client, message, args, guildConf) => {
     // We can check that the key exists to avoid having multiple useless,
     // unused keys in the config:
     if (prop === "show" || prop === "list" || !prop) {
+      //show settings overview
       let configProps = Object.keys(guildConf).map(prop => {
       return `${prop}  :  ${guildConf[prop]}\n`;
     });
       message.channel.send(`The following are the server's current configuration:
       \`\`\`${configProps}\`\`\``);
+
     } else if (prop === "prefix") {
-      if (value.length > 0 && value.length <= 5) {
+      //show settings for prefix
+      if (value[0].length > 0 && value[0].length <= 5) {
         client.settings.set(message.guild.id, value.join(" "), prop);
         message.channel.send(`The prefix has been changed to ${value}`);
       } else {
         message.reply(`Useage: ${guildConf.prefix}settings prefix [Any text, at most 5 characters (e.g. -)]`);
       }
+      // other messages
     } else if (!client.settings.has(message.guild.id, prop)) {
       return message.reply(`This is not a valid setting, use ${guildConf.prefix}settings`);
     } else {
