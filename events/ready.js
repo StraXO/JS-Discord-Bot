@@ -3,7 +3,7 @@ module.exports = client => {
 
   client.user.setActivity(`Currently serving ${client.guilds.size} servers`);
 
-  console.log(`Servers: ${client.guilds.size} Users: ${client.users.size}`);
+  console.log(`Servers: ${client.guilds.size} Users: ≈${client.users.size}`);
   client.guilds.forEach((guild) => {
     console.log(` - ${guild.name} (${guild.memberCount})`);
   })

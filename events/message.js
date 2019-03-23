@@ -1,34 +1,40 @@
-module.exports = (client, message) => {
-  let prefix = process.env.client_prefix;
-  if (message.author.bot) return; //this will ignore all bots
-  if (!message.content.startsWith(prefix)) return; //not starting with prefix
+module.exports = async (client, message) => {
+  const defaultSettings = {
+    prefix: "-"
+  }
 
-  let args = message.content.slice(prefix.length).trim().split(' ');
+  const guildConf = client.settings.ensure(message.guild.id, defaultSettings);
+
+  // Now we can use the values!
+  // We stop processing if the message does not start with our prefix for this guild.
+  if(message.content.indexOf(guildConf.prefix) !== 0){
+   return;
+  }
+
+
+  if (!message.guild || message.author.bot) return; // This stops if it's not a guild, and we ignore all bots.
+  if (!message.content.startsWith(guildConf.prefix)) return; //not starting with prefix
+
+  let args = message.content.slice(guildConf.prefix.length).trim().split(' ');
   let cmd = args.shift().toLowerCase();
-
   let skipFinally = false;
+
+
   try {
-    // Auto-Reload (You should move this into it's own command) done?
-    //delete require.cache[require.resolve(`./../commands/${cmd}.js`)];
-
-    let ops = {
-      ownerID: process.env.client_ops
-    }
-
     let commandFile = require(`./../commands/${cmd}.js`); //tries to find the required command
-    commandFile.run(client, message, args, ops); //execute command with parameters
+    commandFile.run(client, message, args, guildConf); //execute command with parameters
 
   } catch (e) {
     if (e.code !== 'MODULE_NOT_FOUND') {
       console.log(`Start error \r\n ${e.stack}`);
     } else {
-      console.log(`${message.guild} ${message.author.tag} ran an unknown command: ${prefix}${cmd} ${args}`);
+      console.log(`${message.guild} ${message.author.tag} ran an unknown command: ${guildConf.prefix}${cmd} ${args}`);
       skipFinally = true;
     }
 
   } finally {
     if (!skipFinally){
-      console.log(`${message.guild} ${message.author.tag} ran the command: ${prefix}${cmd} ${args}`);
+      console.log(`${message.guild} ${message.author.tag} ran the command: ${guildConf.prefix}${cmd} ${args}`);
     }
   }
 }
