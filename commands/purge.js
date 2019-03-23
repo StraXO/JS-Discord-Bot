@@ -27,7 +27,7 @@ exports.run = async(client, message, args) => {
 
               // Logging the number of messages deleted on both the channel and console.
               message.channel.send(`Deletion of messages successful. Total messages deleted: ${messagesDeleted}`);
-              console.log(`Deletion of messages successful. Total messages deleted: ${messagesDeleted} | ${client.guild.name}`);
+              console.log(`Deletion of messages successful. Total messages deleted: ${messagesDeleted}`);
             })
             .catch(err => {
               console.log('Error while doing Bulk Delete');
