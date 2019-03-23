@@ -20,15 +20,15 @@ module.exports = (client, message) => {
 
   } catch (e) {
     if (e.code !== 'MODULE_NOT_FOUND') {
-      console.log(`Start error | ${message.createdAt} \r\n ${e.stack}`);
+      console.log(`Start error \r\n ${e.stack}`);
     } else {
-      console.log(`${message.guild} ${message.author.tag} ran an unknown command: ${prefix}${cmd} ${args} | ${message.createdAt}`);
+      console.log(`${message.guild} ${message.author.tag} ran an unknown command: ${prefix}${cmd} ${args}`);
       skipFinally = true;
     }
 
   } finally {
     if (!skipFinally){
-      console.log(`${message.guild} ${message.author.tag} ran the command: ${prefix}${cmd} ${args} | ${message.createdAt}`);
+      console.log(`${message.guild} ${message.author.tag} ran the command: ${prefix}${cmd} ${args}`);
     }
   }
 }
