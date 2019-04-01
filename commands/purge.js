@@ -16,6 +16,7 @@ exports.run = async(client, message, args) => {
       // Only delete messages if the channel type is TextChannel
       // DO NOT delete messages in DM Channel or Group DM Channel
       let deleteAmount = parseInt(args[0], 10);
+      let deleteMin = 1;
       let deleteMax = 100;
 
       if (deleteAmount !== typeof(NaN)) {
@@ -26,19 +27,19 @@ exports.run = async(client, message, args) => {
               messagesDeleted = messages.array().length; // number of messages deleted
 
               // Logging the number of messages deleted on both the channel and console.
-              message.channel.send(`Deletion of messages successful. Total messages deleted: ${messagesDeleted}`);
-              console.log(`Deletion of messages successful. Total messages deleted: ${messagesDeleted}`);
+              message.channel.send(`Deletion of messages successful. Total messages deleted: ${messagesDeleted -2}`);
+              console.log(`Deletion of messages successful. Total messages deleted: ${messagesDeleted -2}`);
             })
             .catch(err => {
               console.log('Error while doing Bulk Delete');
               console.log(err);
             });
         } else if (deleteAmount < 1 || deleteAmount > 100) {
-            message.channel.send(`Please enter a valid number, useage: ${process.env.client_prefix}purge (1 - ${deleteMax})`);
+            message.channel.send(`Please enter a valid number, useage: ${process.env.client_prefix}purge (${deleteMin} - ${deleteMax})`);
         } else {
-          message.channel.send(`Please enter a valid number, useage: ${process.env.client_prefix}purge (1 - ${deleteMax})`);
+          message.channel.send(`Please enter a valid number, useage: ${process.env.client_prefix}purge (${deleteMin} - ${deleteMax})`);
         }
       } else {
-        message.channel.send(`Please enter a valid number, useage: ${process.env.client_prefix}purge (1 - ${deleteMax})`);
+        message.channel.send(`Please enter a valid number, useage: ${process.env.client_prefix}purge (${deleteMin} - ${deleteMax})`);
       }
 }
