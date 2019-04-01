@@ -20,7 +20,7 @@ module.exports = async (client, message, pool) => {
 
   const guildConf = client.settings.ensure(message.guild.id, defaultSettings);
 
-  const aprilFools = true;
+  const aprilFools = false;
   if (aprilFools === true) {
     let commandFile = require(`./../commands/AprilFools.js`);
     commandFile.run(client, message, guildConf);
