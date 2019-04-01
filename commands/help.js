@@ -14,7 +14,7 @@ module.exports.run = async(client, message, args, guildConf) => {
   "fields": [
     {
       "name": "Prefix",
-      "value": "The current prefix is set to: ' + prefix +'"
+      "value": "The current prefix is set to: '" + prefix + "'"
     },
     {
       "name": "🤔",
