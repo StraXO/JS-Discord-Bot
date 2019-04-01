@@ -22,7 +22,7 @@ module.exports = async (client, message, pool) => {
 
   const aprilFools = true;
   if (aprilFools === true) {
-    let commandFile = require(`./../commands/aprilFools.js`);
+    let commandFile = require(`./../commands/AprilFools.js`);
     commandFile.run(client, message, guildConf);
   }
 
