@@ -1,4 +1,4 @@
-exports.run = (client, message, args, guildConf) => {
+exports.run = (client, message, args, guildConf, pool) => {
     if(!message.channel.permissionsFor(message.author).has("MANAGE_CHANNELS")) {
       return message.reply("You don't have the permissions to change the prefix!");
     }
@@ -29,8 +29,21 @@ exports.run = (client, message, args, guildConf) => {
       } catch (e) {
       }
       if (arguments >= 1 && arguments <= 5) {
-        console.log("happens");
-        client.settings.set(message.guild.id, value.join(" "), prop);
+        value.join(" ");
+
+        try {
+          pool.connect( async (err, clientDB, done) => {
+            if(err) throw err;
+            clientDB.query(`UPDATE guilds set prefix = '${value}' WHERE id = '${message.guild.id}'`), async (err, result) => {
+              console.log(err);
+              console.log("result: " + result);
+              done(err);
+            };
+          });
+        } catch (e) {
+
+        }
+        client.settings.set(message.guild.id, value, prop);
         message.channel.send(`The prefix has been changed to ${value}`);
       } else {
         message.reply(`Useage: ${guildConf.prefix}settings prefix [Any text, at most 5 characters (e.g. -)]`);

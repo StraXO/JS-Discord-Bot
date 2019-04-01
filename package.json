@@ -7,7 +7,8 @@
     "better-sqlite-pool": "github:eslachance/better-sqlite-pool",
     "discord.js": "^11.4.2",
     "enmap": "^4.8.1",
-    "node-gyp": "^3.8.0"
+    "node-gyp": "^3.8.0",
+    "pg": "^7.9.0"
   },
   "devDependencies": {},
   "scripts": {

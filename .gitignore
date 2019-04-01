@@ -1,6 +1,10 @@
-config.json
 /node_modules
-npm-debug.log
-.DS_Store
 /*.env
 /data
+/*.json
+.DS_Store
+
+# Logs
+logs
+*.log
+npm-debug.log*
