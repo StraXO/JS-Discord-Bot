@@ -20,13 +20,8 @@ module.exports = async (client, message, pool) => {
 
   const guildConf = client.settings.ensure(message.guild.id, defaultSettings);
 
-  const aprilFools = false;
-  if (aprilFools === true) {
-    let commandFile = require(`./../commands/AprilFools.js`);
-    commandFile.run(client, message, guildConf);
-  }
 
-if (!message.guild || message.author.bot) return; // This stops if it's not a guild, and we ignore all bots.
+  if (!message.guild || message.author.bot) return; // This stops if it's not a guild, and we ignore all bots.
 
   //if is attachment
   if (message.attachments.size > 0) {
@@ -52,8 +47,6 @@ if (!message.guild || message.author.bot) return; // This stops if it's not a gu
   // Now we can use the values!
   // We stop processing if the message does not start with our prefix for this guild.
   if(message.content.indexOf(guildConf.prefix) !== 0) return;
-
-
   if (!message.content.startsWith(guildConf.prefix)) return; //not starting with prefix
 
   let args = message.content.slice(guildConf.prefix.length).trim().split(' ');
