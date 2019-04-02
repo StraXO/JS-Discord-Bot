@@ -1,8 +1,6 @@
 module.exports.run = async(client, message, args, guildConf) => {
-  let prefix = guildConf.prefix;
-
   const embed = {
-  "title": `Useage: **${prefix}(command)**`,
+  "title": `Useage: **${guildConf.prefix}(command)**`,
   "description": "For more info visit [Github](https://github.com/StraXO/WeebMaster). ```\nhelp: shows this help screen\navatar\nping\npurge\nrip\nsettings```",
   "url": "https://discordapp.com",
   "color": 13402724,

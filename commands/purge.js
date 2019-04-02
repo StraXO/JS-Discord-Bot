@@ -1,4 +1,4 @@
-exports.run = async(client, message, args) => {
+exports.run = async(client, message, args, guildConf) => {
   // Check the following permissions before deleting messages:
       //    1. Check if the user has enough permissions
       //    2. Check if I have the permission to execute the command
@@ -34,12 +34,10 @@ exports.run = async(client, message, args) => {
               console.log('Error while doing Bulk Delete');
               console.log(err);
             });
-        } else if (deleteAmount < 1 || deleteAmount > 100) {
-            message.channel.send(`Please enter a valid number, useage: ${process.env.client_prefix}purge (${deleteMin} - ${deleteMax})`);
         } else {
-          message.channel.send(`Please enter a valid number, useage: ${process.env.client_prefix}purge (${deleteMin} - ${deleteMax})`);
+          message.channel.send(`Please enter a valid number, useage: ${guildConf.prefix}purge (${deleteMin} - ${deleteMax})`);
         }
       } else {
-        message.channel.send(`Please enter a valid number, useage: ${process.env.client_prefix}purge (${deleteMin} - ${deleteMax})`);
+        message.channel.send(`Please enter a valid number, useage: ${guildConf.prefix}purge (${deleteMin} - ${deleteMax})`);
       }
 }
