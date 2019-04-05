@@ -3,21 +3,16 @@ exports.run = (client, message, args, guildConf, pool) => {
       return message.reply("You don't have the permissions to change the prefix!");
     }
 
-    // Let's get our key and value from the arguments.
-    // This is array destructuring, by the way.
+    // This is array destructuring
     const [prop, ...value] = args;
-    // Example:
-    // prop: "prefix"
-    // value: ["+"]
-    // (yes it's an array, we join it further down!)
 
     // We can check that the key exists to avoid having multiple useless,
     // unused keys in the config:
     if (prop === "show" || prop === "list" || !prop) {
       //show settings overview
       let configProps = Object.keys(guildConf).map(prop => {
-      return `${prop}  :  ${guildConf[prop]}\n`;
-    });
+        return `${prop}  :  ${guildConf[prop]}\n`;
+      });
       message.channel.send(`The following are the server's current configuration:
       \`\`\`${configProps}\`\`\``);
 
