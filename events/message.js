@@ -1,6 +1,6 @@
 module.exports = async (client, message, pool) => {
   const defaultSettings = {
-    prefix: "-"
+    prefix: "w!"
   }
 
   const guildConf = client.settings.ensure(message.guild.id, defaultSettings);
