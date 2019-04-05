@@ -1,5 +1,5 @@
 // This command reloads other commands, using the command handler
-exports.run = (client, message, args, guildConf) => {
+exports.run = (client, message, args) => {
   if (message.author.id !== process.env.client_ops) {
     return message.channels.send('You do not have sufficient permissions to use this command.');
   }

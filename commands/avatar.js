@@ -1,4 +1,4 @@
-exports.run = (client, message, args, guildConf) => {
+exports.run = (client, message, args) => {
 
 	//single user
 	if (!message.mentions.users.size) {

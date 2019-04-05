@@ -1,6 +1,6 @@
-module.exports.run = async(client, message, args, guildConf) => {
+module.exports.run = async(client, message, args) => {
   const embed = {
-  "title": `Useage: **${guildConf.prefix}(command)**`,
+  "title": `Useage: **${client.settings.prefix}(command)**`,
   "description": "For more info visit [Github](https://github.com/StraXO/WeebMaster). ```\nhelp: shows this help screen\navatar\nping\npurge\nrip\nsettings```",
   "url": "https://discordapp.com",
   "color": 13402724,
@@ -12,7 +12,7 @@ module.exports.run = async(client, message, args, guildConf) => {
   "fields": [
     {
       "name": "Prefix",
-      "value": "The current prefix is set to: '" + prefix + "'"
+      "value": "The current prefix is set to: '" + client.settings.prefix + "'"
     },
     {
       "name": "🤔",
