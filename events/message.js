@@ -1,5 +1,6 @@
 module.exports = async (client, message, pool) => {
 
+  console.log('new message');
   pool.connect( async (err, clientDB, done) => {
     if(err) throw err;
       clientDB.query(`select prefix from guilds where id = '${message.guild.id}' limit 1`), async (err, result) => {
@@ -12,16 +13,19 @@ module.exports = async (client, message, pool) => {
             clientDB.query(`INSERT INTO guilds (id, prefix) VALUES ('${guild.id}', '${defaultGuildPrefix}')`), async (err, result) => {
               console.log(err);
               console.log("result: " + result);
+              guildConf.prefix = defaultGuildPrefix;
               done(err);
             };
           });
         } else {
-          client.settings.prefix = result;
+          guildConf.prefix = result;
           console.log(result);
         }
         done(err);
       };
   });
+
+  const guildConf = client.settings.ensure(message.guild.id, defaultSettings);
 
   if (!message.guild || message.author.bot) return; // This stops if it's not a guild, and we ignore all bots.
 
@@ -48,26 +52,27 @@ module.exports = async (client, message, pool) => {
 
   // Now we can use the values!
   // We stop processing if the message does not start with our prefix for this guild.
-  if(message.content.indexOf(client.settings.prefix) !== 0) return;
-  if (!message.content.startsWith(client.settings.prefix)) return; //not starting with prefix
+  console.log('testing prefix: ' + guildConf.prefix);
+  if(message.content.indexOf(guildConf.prefix) !== 0) return;
+  if (!message.content.startsWith(guildConf.prefix)) return; //not starting with prefix
 
-  let args = message.content.slice(client.settings.prefix).trim().split(' ');
+  let args = message.content.slice(guildConf.prefix).trim().split(' ');
   let cmd = args.shift().toLowerCase();
 
   let skipFinally = false;
   try {
     let commandFile = require(`./../commands/${cmd}.js`); //tries to find the required command
-    commandFile.run(client, message, args, pool); //execute command with parameters
+    commandFile.run(client, message, args, guildConf, pool); //execute command with parameters
   } catch (e) {
     if (e.code !== 'MODULE_NOT_FOUND') {
       console.log(`Start error \r\n ${e.stack}`);
     } else {
-      console.log(`${message.guild} ${message.author.tag} ran an unknown command: ${client.settings.prefix}${cmd} ${args}`);
+      console.log(`${message.guild} ${message.author.tag} ran an unknown command: ${guildConf.prefix}${cmd} ${args}`);
       skipFinally = true;
     }
   } finally {
     if (!skipFinally){
-      console.log(`${message.guild} ${message.author.tag} ran the command: ${client.settings.prefix}${cmd} ${args}`);
+      console.log(`${message.guild} ${message.author.tag} ran the command: ${guildConf.prefix}${cmd} ${args}`);
     }
   }
 }

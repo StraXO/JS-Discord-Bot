@@ -4,15 +4,6 @@ const fs = require('fs');
 //Database
 var pool = require('./clientpool.js');
 
-// Initialize **or load** the server configurations
-const Enmap = require('enmap');
-client.settings = new Enmap({
-  name: "settings",
-  fetchAll: false,
-  autoFetch: true,
-  cloneLevel: 'deep'
-});
-
 //Commands
 client.commands = new Discord.Collection();
 
