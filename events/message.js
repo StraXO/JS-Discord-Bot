@@ -1,14 +1,20 @@
 module.exports = async (client, message, pool) => {
-  const defaultSettings = {
-    prefix: "w!"
-  }
 
   pool.connect( async (err, clientDB, done) => {
     if(err) throw err;
       clientDB.query(`select prefix from guilds where id = '${message.guild.id}' limit 1`), async (err, result) => {
         //disconnent from database on error
         if (result === undefined) {
-          console.log(`result is undefined`);
+          console.log(`The guild ${message.guild.name} does not exist in the database (${message.guild.id}). Creating a new key!`);
+          pool.connect( async (err, clientDB, done) => {
+            if(err) throw err;
+            const defaultGuildPrefix = 'w!';
+            clientDB.query(`INSERT INTO guilds (id, prefix) VALUES ('${guild.id}', '${defaultGuildPrefix}')`), async (err, result) => {
+              console.log(err);
+              console.log("result: " + result);
+              done(err);
+            };
+          });
         } else {
           client.settings.prefix = result;
           console.log(result);
