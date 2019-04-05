@@ -3,8 +3,6 @@ module.exports = async (client, message, pool) => {
     prefix: "w!"
   }
 
-  const guildConf = client.settings.ensure(message.guild.id, defaultSettings);
-
   pool.connect( async (err, clientDB, done) => {
     if(err) throw err;
       clientDB.query(`select prefix from guilds where id = '${message.guild.id}' limit 1`), async (err, result) => {
@@ -19,7 +17,7 @@ module.exports = async (client, message, pool) => {
       };
   });
 
-
+  const guildConf = client.settings.ensure(message.guild.id, defaultSettings);
 
 
 
