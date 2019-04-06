@@ -1,8 +1,15 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const fs = require('fs');
+const Enmap = require('enmap');
 //Database
 var pool = require('./clientpool.js');
+
+client.settings = new Enmap({
+  name: "settings",
+  fetchAll: false,
+  autoFetch: true,
+  cloneLevel: 'deep'
+});
 
 //Commands
 client.commands = new Discord.Collection();

@@ -13,10 +13,6 @@ module.exports.run = async(client, message, args, guildConf) => {
     {
       "name": "Prefix",
       "value": "The current prefix is set to: '" + guildConf.prefix + "'"
-    },
-    {
-      "name": "🤔",
-      "value": "I AM NOT FINISHED..."
     }
   ]
 };
