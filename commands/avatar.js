@@ -1,5 +1,4 @@
 exports.run = (client, message, args) => {
-
 	//single user
 	if (!message.mentions.users.size) {
 		return message.channel.send({embed: {
@@ -11,8 +10,12 @@ exports.run = (client, message, args) => {
 	}
 
 	//multiple users
+	// const avatarList = message.mentions.users.map(user => {
+	// 	return `${user.username}'s avatar: <${user.displayAvatarURL}>`;
+	// });
+
 	const avatarList = message.mentions.users.map(user => {
-		return `${user.username}'s avatar: <${user.displayAvatarURL}>`;
+		return user.username + "'s avatar " + user.displayAvatarURL;
 	});
 
 	message.channel.send(avatarList);
