@@ -1,26 +1,37 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const Enmap = require('enmap');
+const fs = require('fs');
+
 //Database
-var pool = require('./clientpool.js');
+const pool = require('./clientpool.js');
 
 client.settings = new Enmap({
-  name: "settings",
-  fetchAll: false,
-  autoFetch: true,
-  cloneLevel: 'deep'
+    name: "settings",
+    fetchAll: false,
+    autoFetch: true,
+    cloneLevel: 'deep'
 });
-
-//Commands
 client.commands = new Discord.Collection();
+client.aliases = new Discord.Collection();
 
-client.commands.set('help', require('./commands/settings.js'));
-client.commands.set('settings', require('./commands/help.js'));
-client.commands.set('ping', require('./commands/ping.js'));
-client.commands.set('reload', require('./commands/reload.js'));
-client.commands.set('rip', require('./commands/rip.js'));
-client.commands.set('avatar', require('./commands/avatar.js'));
-client.commands.set('purge', require('./commands/purge.js'));
+fs.readdir('./commands/', (err, files) => {
+    if (err) console.log(err)
+
+    let jsfile = files.filter(f => f.split(".").pop() === "js")
+    if (jsfile.length <= 0) {
+        return console.log("[CNF] Command Not Found");
+    }
+
+    jsfile.forEach((f, i) => {
+        let pull = require(`./commands/${f}`);
+
+        client.commands.set(pull.config.name, pull);
+        pull.config.aliases.forEach(alias => {
+            client.aliases.set(alias, pull.config.name)
+        });
+    });
+});
 
 client.on('ready', () => require('./events/ready.js')(client, pool));
 client.on('message', message => require('./events/message.js')(client, message, pool));

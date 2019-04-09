@@ -1,22 +1,30 @@
-exports.run = (client, message, args) => {
-	//single user
-	if (!message.mentions.users.size) {
-		return message.channel.send({embed: {
-			"title": `Your profile image`,
-	  	"image": {
-	    	"url": `${message.author.displayAvatarURL}`
-	  	}
-		}});
-	}
+const Discord = require('discord.js')
 
-	//multiple users
-	// const avatarList = message.mentions.users.map(user => {
-	// 	return `${user.username}'s avatar: <${user.displayAvatarURL}>`;
-	// });
+module.exports.run = async (client, message, args, guildConf) => {
+    //single user
+    if (!message.mentions.users.size) {
+        return message.channel.send({
+            embed: {
+                "title": `Your profile image`,
+                "image": {
+                    "url": `${message.author.displayAvatarURL}`
+                }
+            }
+        });
+    }
 
-	const avatarList = message.mentions.users.map(user => {
-		return user.username + "'s avatar " + user.displayAvatarURL;
-	});
+    //multiple users
+    const avatarList = message.mentions.users.map(user => {
+        return user.username + "'s avatar " + user.displayAvatarURL;
+    });
 
-	message.channel.send(avatarList);
+    message.channel.send(avatarList);
+}
+
+module.exports.config = {
+  name: "avatar",
+  aliases: ["ava", "getavatar"],
+  description: "Send an user or multiple users' their avatar",
+  useage: `avatar @user (@more users)`,
+  accessableby: "Members"
 }

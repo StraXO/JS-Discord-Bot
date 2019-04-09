@@ -1,21 +1,28 @@
-module.exports.run = async(client, message, args, guildConf) => {
-  const embed = {
-  "title": `Useage: **${guildConf.prefix}(command)**`,
-  "description": "For more info visit [Github](https://github.com/StraXO/WeebMaster). ```\nhelp: shows this help screen\navatar\nping\npurge\nrip\nsettings```",
-  "url": "https://discordapp.com",
-  "color": 13402724,
-  "timestamp": "2019-04-01T09:06:00.435Z",
-  "footer": {
-    "icon_url": "https://cdn.discordapp.com/avatars/558227965473980416/df9d3d3821b7791a4d86ffee92fd87bf.png?size=2048",
-    "text": "WeebMaster"
-  },
-  "fields": [
-    {
-      "name": "Prefix",
-      "value": "The current prefix is set to: '" + guildConf.prefix + "'"
-    }
-  ]
-};
+const Discord = require('discord.js');
 
-  return message.channel.send("Commands:", {embed});
+module.exports.run = async (client, message, args, guildConf) => {
+  let siEmbed = new Discord.RichEmbed()
+  .setColor(message.guild.me.displayHexColor)
+  .setTitle("Command list")
+  // .setAuthor(`${client.user.username}`, client.user.displayAvatarURL);
+  client.commands.forEach(command => {
+    //command vars
+    let name = command.config.name;
+    let alias = command.config.aliases.join(', ');
+    let description = command.config.description;
+    let useage = command.config.useage;
+    //HAS TO RETURN AN ALIAS, DESCRIPTION OR USEAGE
+    return siEmbed.addField(`${name.charAt(0).toUpperCase() + name.slice(1)}`, (alias ? `**Alias**: ${alias}\n` : ``) + (description ? `**Description**: ${description}\n` : ``) + (useage ? `**Useage**: ${useage}\n` : ``));
+  });
+  siEmbed.setFooter(`${client.user.username}`, client.user.displayAvatarURL);
+
+  return message.channel.send({embed: siEmbed});
+}
+
+module.exports.config = {
+  name: "help",
+  aliases: ["commands", "useage"],
+  description: "Send an user or multiple users' their avatar",
+  useage: `help (command)`,
+  accessableby: "Members"
 }

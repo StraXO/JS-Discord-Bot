@@ -1,5 +1,6 @@
+const Discord = require('discord.js')
 // This command reloads other commands, using the command handler
-exports.run = (client, message, args) => {
+module.exports.run = (client, message, args) => {
   if (message.author.id !== process.env.client_ops) {
     return message.channels.send('You do not have sufficient permissions to use this command.');
   }
@@ -12,4 +13,10 @@ exports.run = (client, message, args) => {
   }
 
   message.channel.send(`Successfully reloaded: ${args[0]}`);
+}
+
+module.exports.config = {
+  name: "reload",
+  aliases: [],
+  description: "Reloads a command"
 }

@@ -1,3 +1,5 @@
+const Discord = require('discord.js')
+
 exports.run = (client, message, args, guildConf, pool) => {
     if(!message.channel.permissionsFor(message.author).has("MANAGE_CHANNELS")) {
       return message.reply("You don't have the permissions to change the prefix!");
@@ -8,10 +10,10 @@ exports.run = (client, message, args, guildConf, pool) => {
 
     // We can check that the key exists to avoid having multiple useless,
     // unused keys in the config:
-    if (prop === "show" || prop === "list" || !prop) {
+    if (!prop || prop === "show" || prop === "list") {
       //show settings overview
-      let configProps = Object.keys(guildConf.prefix).map(prop => {
-        return `${prop}  :  ${client.settings[prop]}\n`;
+      let configProps = Object.keys(guildConf).map(prop => {
+        return `${prop}  :  ${guildConf[prop]}\n`;
       });
       message.channel.send(`The following are the server's current configuration:
       \`\`\`${configProps}\`\`\``);
@@ -35,23 +37,32 @@ exports.run = (client, message, args, guildConf, pool) => {
               done(err);
             };
           });
+          client.settings.set(message.guild.id, value, prop);
+          guildConf.prefix = value;
+          message.channel.send(`The prefix has been changed to ${value}`);
+          console.log(`The prefix has been changed to ${value}`);
+
         } catch (e) {
 
         }
-        client.settings.set(message.guild.id, value, prop);
-        message.channel.send(`The prefix has been changed to ${value}`);
+
       } else {
         message.reply(`Useage: ${guildConf.prefix}settings prefix [Any text, at most 5 characters (e.g. -)]`);
       }
       // other messages
     } else if (!client.settings.has(message.guild.id, prop)) {
-      return message.reply(`This is not a valid setting, use ${guildConf.prefix}settings`);
+      return message.reply(`This is not a valid setting, try ${guildConf.prefix}help settings`);
     } else {
       // Now we can finally change the value. Here we only have strings for values
       // so we won't bother trying to make sure it's the right type and such.
-      client.settings.set(message.guild.id, value.join(" "), prop);
+      //client.settings.set(message.guild.id, value.join(" "), prop);
       // We can confirm everything's done to the client.
-      message.channel.send(`Setting ${prop} has been changed to:\n\`${value.join(" ")}\``);
-      console.log(`${message.guild} | Setting ${prop} has been changed to:\n\`${value.join(" ")}\``)
+      //message.channel.send(`Setting ${prop} has been changed to:\n\`${value.join(" ")}\``);
+      //console.log(`[INFO] ${message.guild} | Setting ${prop} has been changed to:\n\`${value.join(" ")}\``)
     }
+}
+
+module.exports.config = {
+  name: "settings",
+  aliases: ["options"]
 }
