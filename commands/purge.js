@@ -1,4 +1,4 @@
-const Discord = require('discord.js')
+const Discord = require('discord.js');
 
 module.exports.run = async(client, message, args, guildConf) => {
   // Check the following permissions before deleting messages:
@@ -49,5 +49,6 @@ module.exports.run = async(client, message, args, guildConf) => {
 
 module.exports.config = {
   name: "purge",
-  aliases: ["clear"]
+  aliases: ["clear"],
+  description: "Clears a specified amount of messages"
 }

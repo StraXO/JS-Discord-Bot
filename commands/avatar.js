@@ -1,4 +1,4 @@
-const Discord = require('discord.js')
+const Discord = require('discord.js');
 
 module.exports.run = async (client, message, args, guildConf) => {
     //single user
@@ -25,6 +25,6 @@ module.exports.config = {
   name: "avatar",
   aliases: ["ava", "getavatar"],
   description: "Send an user or multiple users' their avatar",
-  useage: `avatar @user (@more users)`,
+  useage: `avatar (@users)`,
   accessableby: "Members"
 }

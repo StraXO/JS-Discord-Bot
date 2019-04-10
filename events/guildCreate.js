@@ -1,4 +1,4 @@
-module.exports = (client, guild, pool, defaultSettings, guildConf) => {
+module.exports = (client, guild, pool, defaultSettings) => {
 // This event triggers when the bot joins a guild.
   console.log(`[INFO] New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
   client.user.setActivity(`Currently serving ${client.guilds.size} servers`);

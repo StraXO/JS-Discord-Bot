@@ -1,19 +1,8 @@
 module.exports = async(client, message, pool, defaultSettings) => {
-    if (!message.guild) return; // This stops if it's not a guild
+    if (!message.guild || message.author.bot) return; // This stops if it's not a guild or itself
 
     const guildConf = client.settings.ensure(message.guild.id, defaultSettings);
-
-    //If the bot loses his prefix for an reason or another...
-    if (!guildConf.prefix || guildConf.prefix === undefined) {
-      pool.connect( async (err, clientDB, done) => {
-        if (err) throw err;
-        clientDB.query(`SELECT prefix from guilds where id = '${guild.id}'`), async (err, result) => {
-          guildConf.prefix = result;
-          done(err);
-        };
-        console.log(`[INFO] SELECT prefix from guilds where id = '${guild.id}'`);
-      });
-    }
+    console.log(guildConf);
 
     //actions on messages in a guild
 
@@ -41,12 +30,13 @@ module.exports = async(client, message, pool, defaultSettings) => {
         }
     }
 
-    if(message.author.bot) return; // Ignore all bots
-
     if (!message.content.startsWith(guildConf.prefix)) return; // Does not use prefix
 
-    let args = message.content.slice(guildConf.prefix.length).trim().split(/ +/g); // Get all arguments, removing the prefix
+    let args = message.content.slice(guildConf.prefix[0].length).trim().split(/ +/g); // Get all arguments, removing the prefix
     let cmd = args.shift().toLowerCase(); // Get the first argument which is the command
+
+    console.log(args);
+    console.log(cmd);
 
     //run the command
     let commandFile = client.commands.get(cmd) || client.commands.get(client.aliases.get(cmd))
@@ -54,9 +44,9 @@ module.exports = async(client, message, pool, defaultSettings) => {
       commandFile.run(client, message, args, guildConf, pool);
       console.log(`[INFO] ${message.guild} ${message.author.tag} ran the command: ${guildConf.prefix}${cmd} ${args}`);
     } else {
-      console.log(guildConf.prefix);
-      console.log(cmd);
-      console.log(args);
+      console.log("prefix " + guildConf.prefix);
+      console.log("cmd " + cmd);
+      console.log("args " + args);
       console.log(`[CNF] ${message.guild} ${message.author.tag} ran an unknown command: ${guildConf.prefix}${cmd} ${args}`);
     }
 }
