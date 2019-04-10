@@ -64,5 +64,5 @@ exports.run = (client, message, args, guildConf, pool) => {
 
 module.exports.config = {
   name: "settings",
-  aliases: ["options"]
+  aliases: ["options", "config"]
 }
