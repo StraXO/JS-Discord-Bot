@@ -11,9 +11,8 @@ module.exports = (client, guild, pool) => {
   pool.connect( async (err, clientDB, done) => {
     if (err) throw err;
     clientDB.query(`INSERT INTO guilds (id, prefix) VALUES ('${guild.id}', '${defaultSettings.prefix}')`), async (err, result) => {
-      console.log(err);
-      console.log("result: " + result);
       done(err);
     };
+    console.log(`INSERT INTO guilds (id, prefix) VALUES ('${guild.id}', '${defaultSettings.prefix}')`);
   });
 }
