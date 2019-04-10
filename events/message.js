@@ -3,8 +3,18 @@ module.exports = async(client, message, pool, defaultSettings) => {
 
     //setup things before sending a message
     const guildConf = client.settings.ensure(message.guild.id, defaultSettings);
-
+    if (!guildConf.prefix) {
+      pool.connect( async (err, clientDB, done) => {
+        if (err) throw err;
+        clientDB.query(`SELECT prefix from guilds where id = '${guild.id}'`), async (err, result) => {
+          guildConf.prefix = result;
+          done(err);
+        };
+        console.log(`[INFO] SELECT prefix from guilds where id = '${guild.id}'`);
+      });
+    }
     //actions on messages
+    console.log(guildConf.prefix);
 
     //if in the guild
     if (message.guild.name === "WeebDungeon") {
