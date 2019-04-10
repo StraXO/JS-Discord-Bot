@@ -1,9 +1,10 @@
 module.exports = async(client, message, pool, defaultSettings) => {
-    if (!message.guild || message.author.bot) return; // This stops if it's not a guild, and we ignore all bots.
+    if (!message.guild) return; // This stops if it's not a guild
 
-    //setup things before sending a message
     const guildConf = client.settings.ensure(message.guild.id, defaultSettings);
-    if (!guildConf.prefix) {
+
+    //If the bot loses his prefix for an reason or another...
+    if (!guildConf.prefix || guildConf.prefix === undefined) {
       pool.connect( async (err, clientDB, done) => {
         if (err) throw err;
         clientDB.query(`SELECT prefix from guilds where id = '${guild.id}'`), async (err, result) => {
@@ -13,8 +14,8 @@ module.exports = async(client, message, pool, defaultSettings) => {
         console.log(`[INFO] SELECT prefix from guilds where id = '${guild.id}'`);
       });
     }
-    //actions on messages
-    console.log(guildConf.prefix);
+
+    //actions on messages in a guild
 
     //if in the guild
     if (message.guild.name === "WeebDungeon") {
@@ -40,10 +41,12 @@ module.exports = async(client, message, pool, defaultSettings) => {
         }
     }
 
-    if (!message.content.startsWith(guildConf.prefix)) return;
+    if(message.author.bot) return; // Ignore all bots
 
-    let args = message.content.slice(guildConf.prefix.length).trim().split(/ +/g);
-    let cmd = args.shift().toLowerCase();
+    if (!message.content.startsWith(guildConf.prefix)) return; // Does not use prefix
+
+    let args = message.content.slice(guildConf.prefix.length).trim().split(/ +/g); // Get all arguments, removing the prefix
+    let cmd = args.shift().toLowerCase(); // Get the first argument which is the command
 
     //run the command
     let commandFile = client.commands.get(cmd) || client.commands.get(client.aliases.get(cmd))
