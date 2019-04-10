@@ -1,14 +1,9 @@
 module.exports = async(client, message, pool, defaultSettings) => {
     if (!message.guild || message.author.bot) return; // This stops if it's not a guild or itself
 
-    const guildConf = client.settings.ensure(message.guild.id, defaultSettings);
-    console.log(guildConf);
-
-    //actions on messages in a guild
-
     //if in the guild
     if (message.guild.name === "WeebDungeon") {
-        //if is send in channels
+        //and is send in these channels
         if (message.channel.name === "🔞nsfw-general" || message.channel.name === "🔞nsfw-bots" || message.channel.name === "⭐strax-private") {
             //check if "🔞nsfw-gallery" exists
             const galleryChannel = message.guild.channels.find(channel => channel.name === "🔞nsfw-gallery");
@@ -30,23 +25,42 @@ module.exports = async(client, message, pool, defaultSettings) => {
         }
     }
 
-    if (!message.content.startsWith(guildConf.prefix)) return; // Does not use prefix
+    //WARNING: EXTREMELY SLOW
 
-    let args = message.content.slice(guildConf.prefix[0].length).trim().split(/ +/g); // Get all arguments, removing the prefix
-    let cmd = args.shift().toLowerCase(); // Get the first argument which is the command
+    //set the correct prefix
+    let guildConf = client.settings.ensure(message.guild.id, defaultSettings);
 
-    console.log(args);
-    console.log(cmd);
+    pool.connect( async (err, clientDB, done) => {
+      if(err) throw err;
 
-    //run the command
-    let commandFile = client.commands.get(cmd) || client.commands.get(client.aliases.get(cmd))
-    if (commandFile) {
-      commandFile.run(client, message, args, guildConf, pool);
-      console.log(`[INFO] ${message.guild} ${message.author.tag} ran the command: ${guildConf.prefix}${cmd} ${args}`);
-    } else {
-      console.log("prefix " + guildConf.prefix);
-      console.log("cmd " + cmd);
-      console.log("args " + args);
-      console.log(`[CNF] ${message.guild} ${message.author.tag} ran an unknown command: ${guildConf.prefix}${cmd} ${args}`);
-    }
+      //get the prefix from the database
+      results = await clientDB.query(`SELECT prefix from guilds WHERE id = '${message.guild.id}' LIMIT 1`);
+      let result = results.rows[0];
+
+      if (result.prefix !== guildConf.prefix) {
+        console.log(guildConf.prefix.length);
+
+        guildConf.prefix = result.prefix;
+        console.log(guildConf.prefix.length);
+      }
+
+      if (!message.content.startsWith(guildConf.prefix)) return; // Does not use prefix
+
+
+      let args = message.content.slice(guildConf.prefix.length).trim().split(/ +/g); // Get all arguments, removing the prefix
+      console.log(guildConf.prefix.length + " | " + guildConf.prefix + " args: " + args);
+      let cmd = args.shift().toLowerCase(); // Get the first argument which is the command
+
+      //run the command
+      let commandFile = client.commands.get(cmd) || client.commands.get(client.aliases.get(cmd));
+      if (commandFile) {
+        commandFile.run(client, message, args, guildConf, pool);
+        console.log(`[INFO] ${message.guild} ${message.author.tag} ran the command: ${guildConf.prefix}${cmd} ${args}`);
+      } else {
+        console.log("prefix: " + guildConf.prefix + " length: " + guildConf.prefix.length);
+        console.log("cmd: " + cmd);
+        console.log("args: " + args);
+        console.log(`[CNF] ${message.guild} ${message.author.tag} ran an unknown command: ${guildConf.prefix}${cmd} ${args}`);
+      }
+    });
 }

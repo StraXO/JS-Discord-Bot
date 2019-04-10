@@ -39,6 +39,7 @@ exports.run = (client, message, args, guildConf, pool) => {
           });
 
           client.settings.set(message.guild.id, value, prop);
+          guildConf.prefix = value;
           message.channel.send(`The prefix has been changed to: ${value}`);
           console.log(`[INFO] The prefix has been changed to: ${value}`);
 
