@@ -25,7 +25,7 @@ module.exports = async(client, message, pool) => {
             }
             console.log("Result: " + result);
             done(err);
-        });
+        };
     });
 
     //actions on messages
