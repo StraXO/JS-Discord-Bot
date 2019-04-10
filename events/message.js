@@ -28,6 +28,7 @@ module.exports = async(client, message, pool) => {
                 guildConf.prefix = result;
                 console.log(result);
             }
+            console.log("Result: " + result);
             done(err);
         };
     });
