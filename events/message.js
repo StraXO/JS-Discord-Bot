@@ -56,7 +56,7 @@ module.exports = async(client, message, pool) => {
 
     if (!message.content.startsWith(guildConf.prefix)) return;
 
-    let args = message.content.slice(guildConf.prefix[0].length).trim().split(/ +/g);
+    let args = message.content.slice(guildConf.prefix.length).trim().split(/ +/g);
     let cmd = args.shift().toLowerCase();
 
     //run the command
@@ -66,9 +66,6 @@ module.exports = async(client, message, pool) => {
       console.log(`[INFO] ${message.guild} ${message.author.tag} ran the command: ${guildConf.prefix}${cmd} ${args}`);
     } else {
       console.log(guildConf.prefix);
-      console.log(guildConf.prefix[0]);
-      console.log(guildConf.prefix.length);
-      console.log(guildConf.prefix[0].length);
       console.log(cmd);
       console.log(args);
       console.log(`[CNF] ${message.guild} ${message.author.tag} ran an unknown command: ${guildConf.prefix}${cmd} ${args}`);
