@@ -13,6 +13,6 @@ module.exports = (client, guild, pool) => {
     clientDB.query(`INSERT INTO guilds (id, prefix) VALUES ('${guild.id}', '${defaultSettings.prefix}')`), async (err, result) => {
       done(err);
     };
-    console.log(`INSERT INTO guilds (id, prefix) VALUES ('${guild.id}', '${defaultSettings.prefix}')`);
+    console.log(`[INFO] INSERT INTO guilds (id, prefix) VALUES ('${guild.id}', '${defaultSettings.prefix}')`);
   });
 }
