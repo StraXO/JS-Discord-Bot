@@ -38,17 +38,13 @@ module.exports = async(client, message, pool, defaultSettings) => {
       let result = results.rows[0];
 
       if (result.prefix !== guildConf.prefix) {
-        console.log(guildConf.prefix.length);
-
         guildConf.prefix = result.prefix;
-        console.log(guildConf.prefix.length);
       }
 
       if (!message.content.startsWith(guildConf.prefix)) return; // Does not use prefix
 
 
       let args = message.content.slice(guildConf.prefix.length).trim().split(/ +/g); // Get all arguments, removing the prefix
-      console.log(guildConf.prefix.length + " | " + guildConf.prefix + " args: " + args);
       let cmd = args.shift().toLowerCase(); // Get the first argument which is the command
 
       //run the command
@@ -57,9 +53,7 @@ module.exports = async(client, message, pool, defaultSettings) => {
         commandFile.run(client, message, args, guildConf, pool);
         console.log(`[INFO] ${message.guild} ${message.author.tag} ran the command: ${guildConf.prefix}${cmd} ${args}`);
       } else {
-        console.log("prefix: " + guildConf.prefix + " length: " + guildConf.prefix.length);
-        console.log("cmd: " + cmd);
-        console.log("args: " + args);
+        console.log("[CNF] prefix: " + guildConf.prefix + " length: " + guildConf.prefix.length + "  cmd: " + cmd + " args: " + args);
         console.log(`[CNF] ${message.guild} ${message.author.tag} ran an unknown command: ${guildConf.prefix}${cmd} ${args}`);
       }
     });
