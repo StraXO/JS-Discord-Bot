@@ -16,7 +16,7 @@ client.settings = new Enmap({
 });
 
 defaultSettings = {
-  prefix: "!"
+  prefix: "w!"
 }
 
 // Commands and events
