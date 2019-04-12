@@ -29,7 +29,7 @@ module.exports = async(client, message, pool, defaultSettings) => {
     let guildConf = client.settings.ensure(message.guild.id, defaultSettings);
 
     if (!message.content.startsWith(guildConf.prefix)) return; // Does not use prefix
-
+    console.log(guildConf.prefix + " " + guildConf.prefix.length);
     let args = message.content.slice(guildConf.prefix.length).trim().split(/ +/g); // Get all arguments, removing the prefix
     let cmd = args.shift().toLowerCase(); // Get the first argument which is the command
 

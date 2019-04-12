@@ -1,5 +1,5 @@
 module.exports = async (client, pool) => {
-  console.log(`Logged in as: ${client.user.tag}`);
+  console.log(`[STARTUP] Logged in as: ${client.user.tag}`);
 
   client.user.setActivity(`Currently serving ${client.guilds.size} servers`);
 
@@ -9,16 +9,15 @@ module.exports = async (client, pool) => {
     serverList += ` - ${guild.name} (${guild.memberCount}) \n`;
     totalUsers += guild.memberCount;
   });
-  console.log(`Servers: ${client.guilds.size} Users: ${totalUsers} \n${serverList}`);
+  console.log(`[STARTUP] Servers: ${client.guilds.size} Users: ${totalUsers} \n${serverList}`);
 
   //Database connection
   pool.connect( async (err, clientDB, done) => {
     if(err) throw err;
-    console.log('Connected to PostgresSQL');
+    console.log('[STARTUP] Connected to PostgresSQL');
 
-    //FILL GUILDCONF HEREa
 
-      // If table does not exist then create it
+    // If table does not exist then create it
     clientDB.query('create table if not exists guilds(id text primary key, prefix text)', (err, result) => {
       //disconnent from database on error
       done(err);
@@ -29,7 +28,7 @@ module.exports = async (client, pool) => {
     //set guild_id with prefix
     result.rows.forEach((guild) => {
       client.settings.set(guild.id, guild.prefix, "prefix");
-      console.log(guild.id, " " + guild.prefix);
+      console.log("[STARTUP] " + guild.id, " " + guild.prefix);
     });
 
 
