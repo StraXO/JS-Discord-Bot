@@ -28,32 +28,19 @@ module.exports = async(client, message, pool, defaultSettings) => {
     //set the correct prefix
     let guildConf = client.settings.ensure(message.guild.id, defaultSettings);
 
-    pool.connect( async (err, clientDB, done) => {
-      if(err) throw err;
+    if (!message.content.startsWith(guildConf.prefix)) return; // Does not use prefix
 
-      //get the prefix from the database
-      // results = await clientDB.query(`SELECT prefix from guilds WHERE id = '${message.guild.id}' LIMIT 1`);
-      // let result = results.rows[0];
-      //
-      // if (result.prefix !== guildConf.prefix) {
-      //   guildConf.prefix = result.prefix;
-      // }
+    let args = message.content.slice(guildConf.prefix.length).trim().split(/ +/g); // Get all arguments, removing the prefix
+    let cmd = args.shift().toLowerCase(); // Get the first argument which is the command
 
-      if (!message.content.startsWith(guildConf.prefix)) return; // Does not use prefix
+    //run the command
+    let commandFile = client.commands.get(cmd) || client.commands.get(client.aliases.get(cmd));
 
-
-      let args = message.content.slice(guildConf.prefix.length).trim().split(/ +/g); // Get all arguments, removing the prefix
-      let cmd = args.shift().toLowerCase(); // Get the first argument which is the command
-
-      //run the command
-      let commandFile = client.commands.get(cmd) || client.commands.get(client.aliases.get(cmd));
-
-      if (commandFile) {
-        commandFile.run(client, message, args, guildConf, pool);
-        console.log(`[INFO] ${message.guild} ${message.author.tag} ran the command: ${guildConf.prefix}${cmd} ${args}`);
-      } else {
-        console.log("[CNF] prefix: " + guildConf.prefix + " length: " + guildConf.prefix.length + "  cmd: " + cmd + " args: " + args);
-        console.log(`[CNF] ${message.guild} ${message.author.tag} ran an unknown command: ${guildConf.prefix}${cmd} ${args}`);
-      }
-    });
+    if (commandFile) {
+      commandFile.run(client, message, args, guildConf, pool);
+      console.log(`[INFO] ${message.guild} ${message.author.tag} ran the command: ${guildConf.prefix}${cmd} ${args}`);
+    } else {
+      console.log("[CNF] prefix: " + guildConf.prefix + " length: " + guildConf.prefix.length + "  cmd: " + cmd + " args: " + args);
+      console.log(`[CNF] ${message.guild} ${message.author.tag} ran an unknown command: ${guildConf.prefix}${cmd} ${args}`);
+    }
 }
