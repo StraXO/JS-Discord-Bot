@@ -28,7 +28,7 @@ module.exports = async (client, pool) => {
 
     //set guild_id with prefix
     result.rows.forEach((guild) => {
-      client.settings.set(guild.id, guild.prefix);
+      client.settings.set(guild.id, guild.prefix, "prefix");
       console.log(guild.id, " " + guild.prefix);
     });
 
