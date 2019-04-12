@@ -1,5 +1,5 @@
-module.exports = async(client, message, pool, defaultSettings) => {
-    if (!message.guild || message.author.bot) return; // This stops if it's not a guild or itself
+module.exports = async (client, message, pool, defaultSettings) => {
+    if (!message.guild) return; // This stops if it's not a guild or itself
 
     //if in the guild
     if (message.guild.name === "WeebDungeon") {
@@ -8,17 +8,18 @@ module.exports = async(client, message, pool, defaultSettings) => {
             //check if "🔞nsfw-gallery" exists
             const galleryChannel = message.guild.channels.find(channel => channel.name === "🔞nsfw-gallery");
 
-            if (!galleryChannel) {
-                console.log('The gallery channel does not exist');
-            } else {
-                //if is attachment
+            if (galleryChannel) {
                 if (message.attachments.size > 0) {
                     message.attachments.forEach(attachment => {
                         galleryChannel.send("", { file: attachment.url });
                     });
                 } else if (message.embeds.length > 0) {
                     message.embeds.forEach(embed => {
+                      if (embed.url) {
                         galleryChannel.send("", { file: embed.url });
+                      } else if (embed.image.url) {
+                        galleryChannel.send("", { file: embed.image.url });
+                      }
                     });
                 }
             }
@@ -28,7 +29,7 @@ module.exports = async(client, message, pool, defaultSettings) => {
     //set the correct prefix
     let guildConf = client.settings.ensure(message.guild.id, defaultSettings);
 
-    if (!message.content.startsWith(guildConf.prefix)) return; // Does not use prefix
+    if (!message.content.startsWith(guildConf.prefix) || message.author.bot) return; // Does not use prefix
 
     let args = message.content.slice(guildConf.prefix.length).trim().split(/ +/g); // Get all arguments, removing the prefix
     let cmd = args.shift().toLowerCase(); // Get the first argument which is the command
