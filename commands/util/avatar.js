@@ -25,6 +25,7 @@ module.exports.config = {
   name: "avatar",
   aliases: ["ava", "getavatar"],
   description: "Send an user or multiple users' their avatar",
+  category: 'util',
   useage: `avatar (@users)`,
   accessableby: "Members"
 }

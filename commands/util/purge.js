@@ -50,5 +50,8 @@ module.exports.run = async(client, message, args, guildConf) => {
 module.exports.config = {
   name: "purge",
   aliases: ["clear"],
-  description: "Clears a specified amount of messages"
+  description: "Clears a specified amount of messages",
+  category: 'util',
+  useage: `purge (amount of messages)`,
+  accessableby: "Admins"
 }

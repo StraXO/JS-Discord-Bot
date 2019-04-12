@@ -25,8 +25,6 @@ module.exports = async(client, message, pool, defaultSettings) => {
         }
     }
 
-    //WARNING: EXTREMELY SLOW
-
     //set the correct prefix
     let guildConf = client.settings.ensure(message.guild.id, defaultSettings);
 
@@ -34,12 +32,12 @@ module.exports = async(client, message, pool, defaultSettings) => {
       if(err) throw err;
 
       //get the prefix from the database
-      results = await clientDB.query(`SELECT prefix from guilds WHERE id = '${message.guild.id}' LIMIT 1`);
-      let result = results.rows[0];
-
-      if (result.prefix !== guildConf.prefix) {
-        guildConf.prefix = result.prefix;
-      }
+      // results = await clientDB.query(`SELECT prefix from guilds WHERE id = '${message.guild.id}' LIMIT 1`);
+      // let result = results.rows[0];
+      //
+      // if (result.prefix !== guildConf.prefix) {
+      //   guildConf.prefix = result.prefix;
+      // }
 
       if (!message.content.startsWith(guildConf.prefix)) return; // Does not use prefix
 
@@ -49,6 +47,7 @@ module.exports = async(client, message, pool, defaultSettings) => {
 
       //run the command
       let commandFile = client.commands.get(cmd) || client.commands.get(client.aliases.get(cmd));
+
       if (commandFile) {
         commandFile.run(client, message, args, guildConf, pool);
         console.log(`[INFO] ${message.guild} ${message.author.tag} ran the command: ${guildConf.prefix}${cmd} ${args}`);

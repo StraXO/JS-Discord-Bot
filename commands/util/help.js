@@ -1,5 +1,10 @@
 const Discord = require('discord.js');
 
+const categoryObj = {
+  'fun': 'Fun',
+  'util': 'Utility'
+};
+
 module.exports.run = async (client, message, args, guildConf) => {
   let siEmbed = new Discord.RichEmbed()
   .setColor(message.guild.me.displayHexColor)
@@ -12,7 +17,10 @@ module.exports.run = async (client, message, args, guildConf) => {
     let description = command.config.description;
     let useage = command.config.useage;
 
-    return siEmbed.addField(`${name.charAt(0).toUpperCase() + name.slice(1)}`, (alias ? `**Alias**: ${alias}\n` : ``) + (description ? `**Description**: ${description}\n` : ``) + (useage ? `**Useage**: ${useage}\n` : ``));
+    return siEmbed.addField(`${name.charAt(0).toUpperCase() + name.slice(1)}`,
+    (alias ? `**Alias**: ${alias}\n` : ``) +
+    (description ? `**Description**: ${description}\n` : ``) +
+    (useage ? `**Useage**: ${useage}\n` : ``));
   });
   siEmbed.setFooter(`${client.user.username}`, client.user.displayAvatarURL);
 
@@ -23,6 +31,7 @@ module.exports.config = {
   name: "help",
   aliases: ["commands", "useage"],
   description: "Show this help dialog",
+  category: 'util',
   useage: `help (command)`,
   accessableby: "Members"
 }

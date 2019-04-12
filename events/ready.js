@@ -12,14 +12,29 @@ module.exports = async (client, pool) => {
   console.log(`Servers: ${client.guilds.size} Users: ${totalUsers} \n${serverList}`);
 
   //Database connection
-  pool.connect( (err, clientDB, done) => {
+  pool.connect( async (err, clientDB, done) => {
     if(err) throw err;
     console.log('Connected to PostgresSQL');
 
+    //FILL GUILDCONF HEREa
+
       // If table does not exist then create it
-      clientDB.query('create table if not exists guilds(id text primary key, prefix text)', (err, result) => {
-        //disconnent from database on error
-        done(err);
-      });
+    clientDB.query('create table if not exists guilds(id text primary key, prefix text)', (err, result) => {
+      //disconnent from database on error
+      done(err);
+    });
+
+    let result = await clientDB.query('SELECT * from guilds');
+
+    //set guild_id with prefix
+    result.rows.forEach((guild) => {
+      client.settings.set(guild.id, guild.prefix);
+      console.log(guild.id, " " + guild.prefix);
+    });
+
+
+    // result.forEach((guild) => {
+    //   console.log(guild.id);
+    // });
   });
 }

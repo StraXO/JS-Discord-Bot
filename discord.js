@@ -1,5 +1,11 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const client = new Discord.Client({
+  disableEveryone: true,
+  disabledEvents: [
+    'START_TYPING',
+    'STOP_TYPING'
+  ]
+});
 const Enmap = require('enmap');
 const pool = require('./clientpool.js');
 const fs = require('fs');
@@ -23,20 +29,35 @@ defaultSettings = {
 fs.readdir('./commands/', (err, files) => {
     if (err) console.log(err)
 
-    let jsfile = files.filter(f => f.split(".").pop() === "js")
-    if (jsfile.length <= 0) {
-        return console.log("[CNF] Command Not Found");
-    }
+    files.forEach((file) => {
+      fs.readdir(`./commands/${file}/`, (err, commands) => {
+        let jsfile = commands.filter(f => f.split(".").pop() === "js")
 
-    jsfile.forEach((f, i) => {
-        let pull = require(`./commands/${f}`);
+        jsfile.forEach((f, i) => {
+          console.log(`./commands/${file}/${f}`);
+            let pull = require(`./commands/${file}/${f}`);
 
-        client.commands.set(pull.config.name, pull);
-        pull.config.aliases.forEach(alias => {
-            client.aliases.set(alias, pull.config.name)
+            client.commands.set(pull.config.name, pull);
+            pull.config.aliases.forEach(alias => {
+                client.aliases.set(alias, pull.config.name)
+            });
         });
+      });
     });
 });
+
+// fs.readdirSync('./commands').forEach(c => {
+//   const files = fs.readdirSync(`./commands/${c}`).filter(f => f.endsWith('.js')).map(f => f.slice(0, -3));
+//
+//   files.forEach(file => {
+//     let pull = require(`./commands/${c}`);
+//
+//     client.commands.set(pull.config.name, pull);
+//     pull.config.aliases.forEach(alias => {
+//         client.aliases.set(alias, pull.config.name)
+//     });
+//   });
+// });
 
 client.on('ready', () => require('./events/ready.js')(client, pool));
 client.on('message', message => require('./events/message.js')(client, message, pool, defaultSettings));
