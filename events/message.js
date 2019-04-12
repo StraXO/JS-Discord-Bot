@@ -29,7 +29,7 @@ module.exports = async(client, message, pool, defaultSettings) => {
     let guildConf = client.settings.ensure(message.guild.id, defaultSettings);
 
     if (!message.content.startsWith(guildConf.prefix)) return; // Does not use prefix
-    console.log(guildConf.prefix + " " + guildConf.prefix.length);
+
     let args = message.content.slice(guildConf.prefix.length).trim().split(/ +/g); // Get all arguments, removing the prefix
     let cmd = args.shift().toLowerCase(); // Get the first argument which is the command
 
@@ -40,7 +40,6 @@ module.exports = async(client, message, pool, defaultSettings) => {
       commandFile.run(client, message, args, guildConf, pool);
       console.log(`[INFO] ${message.guild} ${message.author.tag} ran the command: ${guildConf.prefix}${cmd} ${args}`);
     } else {
-      console.log("[CNF] prefix: " + guildConf.prefix + " length: " + guildConf.prefix.length + "  cmd: " + cmd + " args: " + args);
       console.log(`[CNF] ${message.guild} ${message.author.tag} ran an unknown command: ${guildConf.prefix}${cmd} ${args}`);
     }
 }

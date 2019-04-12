@@ -6,7 +6,6 @@ module.exports.run = async (client, message, args) => {
     fetch: require('node-fetch')
   };
   //if (!client.checkClientPerms(message.channel, 'EMBED_LINKS')) return client.functions.get('noClientPerms')(message, ['Embed Links'], message.channel);
-  console.log(args);
   if (!args[0]) return message.reply('Please specify one of the modes; standard, taiko, ctb, or mania.');
   const mode = args[0].toLowerCase();
   const modeChoices = {
@@ -49,7 +48,8 @@ module.exports.run = async (client, message, args) => {
 module.exports.config = {
   name: 'osu',
   aliases: ["osu!"],
-  description: 'Displays a user\'s stats on a game called osu!.',
+  description: 'Displays a user\'s stats on the game called osu!.',
   category: 'fun',
-  usage: 'osu <Mode> <Player Name or ID>'
+  usage: 'osu <Mode> <Player Name or ID>',
+  accessableby: "Members"
 };

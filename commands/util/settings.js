@@ -8,9 +8,7 @@ exports.run = (client, message, args, guildConf, pool) => {
     // This is array destructuring
     const [prop, ...value] = args;
 
-    // We can check that the key exists to avoid having multiple useless,
-    // unused keys in the config:
-    if (!prop || prop === "show" || prop === "list") {
+    if (!prop || prop === "show" || prop === "list" || prop === "current") {
       //show settings overview
       let configProps = Object.keys(guildConf).map(prop => {
         return `${prop}  :  ${guildConf[prop]}\n`;
@@ -37,9 +35,7 @@ exports.run = (client, message, args, guildConf, pool) => {
             };
             console.log(`[DB] UPDATE guilds set prefix = '${value}' WHERE id = '${message.guild.id}'`);
           });
-          console.log(value);
-          console.log(value.length);
-          console.log(value[0].length);
+
           client.settings.set(message.guild.id, value[0], prop);
           message.channel.send(`The prefix has been changed to: ${value}`);
           console.log(`[INFO] The prefix has been changed to: ${value}`);
@@ -49,7 +45,7 @@ exports.run = (client, message, args, guildConf, pool) => {
         }
 
       } else {
-        message.reply(`Useage: ${guildConf.prefix}settings prefix (Max 5 characters)`);
+        message.reply(`Usage: ${guildConf.prefix}settings prefix (Max 5 characters)`);
       }
       // other messages
     } else if (!guildConf.has(message.guild.id, prop)) {
@@ -67,6 +63,7 @@ exports.run = (client, message, args, guildConf, pool) => {
 module.exports.config = {
   name: "settings",
   aliases: ["options", "config"],
-  description: "Show or change settings",
-  category: 'util'
+  description: "Show or change bot settings",
+  category: 'util',
+  accessableby: "Admins"
 }

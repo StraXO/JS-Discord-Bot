@@ -24,8 +24,8 @@ module.exports.run = async (client, message, args, guildConf) => {
 module.exports.config = {
   name: "avatar",
   aliases: ["ava", "getavatar"],
-  description: "Send an user or multiple users' their avatar",
+  description: "Get the avatar of an user",
   category: 'util',
-  useage: `avatar (@users)`,
+  usage: `avatar <@Users>`,
   accessableby: "Members"
 }

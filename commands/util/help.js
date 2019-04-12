@@ -15,12 +15,12 @@ module.exports.run = async (client, message, args, guildConf) => {
     let name = command.config.name;
     let alias = command.config.aliases.join(', ');
     let description = command.config.description;
-    let useage = command.config.useage;
+    let usage = command.config.usage;
 
     return siEmbed.addField(`${name.charAt(0).toUpperCase() + name.slice(1)}`,
     (alias ? `**Alias**: ${alias}\n` : ``) +
     (description ? `**Description**: ${description}\n` : ``) +
-    (useage ? `**Useage**: ${useage}\n` : ``));
+    (usage ? `**Usage**: ${usage}\n` : ``));
   });
   siEmbed.setFooter(`${client.user.username}`, client.user.displayAvatarURL);
 
@@ -29,9 +29,9 @@ module.exports.run = async (client, message, args, guildConf) => {
 
 module.exports.config = {
   name: "help",
-  aliases: ["commands", "useage"],
+  aliases: ["commands", "usage"],
   description: "Show this help dialog",
   category: 'util',
-  useage: `help (command)`,
+  usage: `help`,
   accessableby: "Members"
 }

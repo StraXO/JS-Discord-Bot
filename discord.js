@@ -27,13 +27,16 @@ defaultSettings = {
 
 // Commands and events
 fs.readdir('./commands/', (err, files) => {
+    //check if the folder commands exists
     if (err) console.log(err)
 
     files.forEach((file) => {
+      //this is for directories within commands
       fs.readdir(`./commands/${file}/`, (err, commands) => {
         let jsfile = commands.filter(f => f.split(".").pop() === "js")
 
         jsfile.forEach((f, i) => {
+          //command in the directory
           console.log(`./commands/${file}/${f}`);
             let pull = require(`./commands/${file}/${f}`);
 

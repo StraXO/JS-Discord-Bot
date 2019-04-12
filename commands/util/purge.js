@@ -40,10 +40,10 @@ module.exports.run = async(client, message, args, guildConf) => {
               console.log(err);
             });
         } else {
-          message.channel.send(`Please enter a valid number, useage: ${guildConf.prefix}purge (${deleteMin} - ${deleteMax})`);
+          message.channel.send(`Please enter a valid number, usage: ${guildConf.prefix}purge (${deleteMin} - ${deleteMax})`);
         }
       } else {
-        message.channel.send(`Please enter a valid number, useage: ${guildConf.prefix}purge (${deleteMin} - ${deleteMax})`);
+        message.channel.send(`Please enter a valid number, usage: ${guildConf.prefix}purge (${deleteMin} - ${deleteMax})`);
       }
 }
 
@@ -52,6 +52,6 @@ module.exports.config = {
   aliases: ["clear"],
   description: "Clears a specified amount of messages",
   category: 'util',
-  useage: `purge (amount of messages)`,
+  usage: `purge <Amount of messages>`,
   accessableby: "Admins"
 }

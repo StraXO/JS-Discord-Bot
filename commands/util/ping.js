@@ -11,8 +11,7 @@ module.exports.run = async (client, message, args, guildConf) => {
 module.exports.config = {
   name: "ping",
   aliases: ["latency"],
-  description: "Send an user or multiple users' their avatar",
+  description: "Test the latency between the server and bot",
   category: 'util',
-  useage: `avatar @user (@more users)`,
   accessableby: "Members"
 }
