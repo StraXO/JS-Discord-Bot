@@ -37,9 +37,10 @@ exports.run = (client, message, args, guildConf, pool) => {
             };
             console.log(`[DB] UPDATE guilds set prefix = '${value}' WHERE id = '${message.guild.id}'`);
           });
-
-          client.settings.set(message.guild.id, value, prop);
-          guildConf.prefix = value;
+          console.log(value);
+          console.log(value.length);
+          console.log(value[0].length);
+          client.settings.set(message.guild.id, value[0], prop);
           message.channel.send(`The prefix has been changed to: ${value}`);
           console.log(`[INFO] The prefix has been changed to: ${value}`);
 

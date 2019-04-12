@@ -6,7 +6,7 @@ module.exports = async (client, pool) => {
   let totalUsers = 0;
   let serverList = "";
   client.guilds.forEach((guild) => {
-    serverList += ` - ${guild.name} (${guild.memberCount}) \n`;
+    serverList += `[STARTUP] - ${guild.name} (${guild.memberCount}) \n`;
     totalUsers += guild.memberCount;
   });
   console.log(`[STARTUP] Servers: ${client.guilds.size} Users: ${totalUsers} \n${serverList}`);
