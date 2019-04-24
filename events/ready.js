@@ -1,4 +1,4 @@
-module.exports = async (client, pool) => {
+module.exports = async (client, pool, defaultSettings) => {
   console.log(`[STARTUP] Logged in as: ${client.user.tag}`);
 
   client.user.setActivity(`Currently serving ${client.guilds.size} servers`);
@@ -26,7 +26,7 @@ module.exports = async (client, pool) => {
 
     result.rows.forEach((guild) => {
       client.settings.set(guild.id, guild.prefix, "prefix");
-      console.log("[STARTUP] " + guild.id, " " + guild.prefix);
+      console.log(`[STARTUP] ${guild.id} ${guild.prefix}`);
     });
   });
 }

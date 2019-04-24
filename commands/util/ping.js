@@ -13,5 +13,6 @@ module.exports.config = {
   aliases: ["latency"],
   description: "Test the latency between the server and bot",
   category: 'util',
+  usage: `ping`,
   accessableby: "Members"
 }

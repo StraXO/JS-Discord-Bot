@@ -19,5 +19,6 @@ module.exports.config = {
   aliases: ["si", "info"],
   description: "Show information about this server",
   category: 'util',
+  usage: `serverinfo`,
   accessableby: "Members"
 }

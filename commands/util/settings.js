@@ -65,5 +65,6 @@ module.exports.config = {
   aliases: ["options", "config"],
   description: "Show or change bot settings",
   category: 'util',
+  usage: `settings <setting> <value>`,
   accessableby: "Admins"
 }

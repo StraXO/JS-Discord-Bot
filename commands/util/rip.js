@@ -11,5 +11,6 @@ module.exports.config = {
   aliases: [],
   description: "Send an RIP image",
   category: 'util',
+  usage: `rip`,
   accessableby: "Members"
 }
