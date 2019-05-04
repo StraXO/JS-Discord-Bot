@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const Discord = require('discord.js')
 
 module.exports.run = async (client, message, args, guildConf) => {
   // Calculates ping between sending a message and editing it, giving a nice round-trip latency.

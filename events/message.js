@@ -39,8 +39,8 @@ module.exports = async (client, message, pool, defaultSettings) => {
 
     if (commandFile) {
       commandFile.run(client, message, args, guildConf, pool);
-      console.log(`[INFO] ${message.guild} ${message.author.tag} ran the command: ${guildConf.prefix}${cmd} ${args}`);
+      console.log(`[INFO] ${message.guild} ${message.author.tag} ran the command: ${guildConf.prefix}${cmd} ${args.join(" ")}`);
     } else {
-      console.log(`[CNF] ${message.guild} ${message.author.tag} ran an unknown command: ${guildConf.prefix}${cmd} ${args}`);
+      console.log(`[CNF] ${message.guild} ${message.author.tag} ran an unknown command: ${guildConf.prefix}${cmd} ${args.join(" ")}`);
     }
 }

@@ -1,6 +1,8 @@
 const Discord = require('discord.js')
 
 exports.run = (client, message, args, guildConf, pool) => {
+  if (message.channel.type !== 'text') return message.reply('I can\'t execute that command inside DMs!');
+
     if(!message.channel.permissionsFor(message.author).has("MANAGE_CHANNELS")) {
       return message.reply("You don't have the permissions to change the prefix!");
     }

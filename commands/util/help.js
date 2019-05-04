@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const Discord = require('discord.js')
 
 const categoryObj = {
   'fun': 'Fun',
@@ -11,16 +11,19 @@ module.exports.run = async (client, message, args, guildConf) => {
   .setTitle("Command list")
   // .setAuthor(`${client.user.username}`, client.user.displayAvatarURL);
   client.commands.forEach(command => {
-    //command vars
-    let name = command.config.name;
-    let alias = command.config.aliases.join(', ');
-    let description = command.config.description;
-    let usage = command.config.usage;
+    //Only show the command if its not hidden
+    if (client.commands.hideFromHelp !== undefined || client.commands.hideFromHelp === false) {
+      //command vars
+      let name = command.config.name;
+      let alias = command.config.aliases.join(', ');
+      let description = command.config.description;
+      let usage = command.config.usage;
 
-    return siEmbed.addField(`${name.charAt(0).toUpperCase() + name.slice(1)}`,
-    (alias ? `**Alias**: ${alias}\n` : ``) +
-    (description ? `**Description**: ${description}\n` : ``) +
-    (usage ? `**Usage**: ${usage}\n` : ``));
+      return siEmbed.addField(`${name.charAt(0).toUpperCase() + name.slice(1)}`,
+      (alias ? `**Alias**: ${alias}\n` : ``) +
+      (description ? `**Description**: ${description}\n` : ``) +
+      (usage ? `**Usage**: ${usage}\n` : ``));
+    }
   });
   siEmbed.setFooter(`${client.user.username}`, client.user.displayAvatarURL);
 

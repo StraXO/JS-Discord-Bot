@@ -1,8 +1,8 @@
-const Discord = require('discord.js');
+const Discord = require('discord.js')
 
 module.exports.run = async (client, message, args) => {
   client = {
-    fetch: require('node-fetch');
+    fetch: require('node-fetch')
   };
   //if (!client.checkClientPerms(message.channel, 'EMBED_LINKS')) return client.functions.get('noClientPerms')(message, ['Embed Links'], message.channel);
   if (!args[0]) return message.reply('Please specify one of the modes; standard, taiko, ctb, or mania.');

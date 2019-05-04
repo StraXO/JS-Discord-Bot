@@ -1,6 +1,8 @@
-const Discord = require('discord.js');
+const Discord = require('discord.js')
 
 module.exports.run = async (client, message, args) => {
+  if (message.channel.type !== 'text') return message.reply('I can\'t execute that command inside DMs!');
+
   let siEmbed = new Discord.RichEmbed()
   .setColor(message.guild.me.displayHexColor)
   .setTitle("Server Info")
