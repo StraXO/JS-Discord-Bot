@@ -12,7 +12,7 @@ module.exports.run = async (client, message, args, guildConf) => {
   // .setAuthor(`${client.user.username}`, client.user.displayAvatarURL);
   client.commands.forEach(command => {
     //Only show the command if its not hidden
-    if (client.commands.hideFromHelp !== undefined || client.commands.hideFromHelp === false) {
+    if (command.config.hideFromHelp !== undefined || command.config.hideFromHelp === false) {
       //command vars
       let name = command.config.name;
       let alias = command.config.aliases.join(', ');
