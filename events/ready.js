@@ -26,7 +26,7 @@ module.exports = async (client, pool, defaultSettings) => {
 
     result.rows.forEach((guild) => {
       client.settings.set(guild.id, guild.prefix, "prefix");
-      console.log(`[STARTUP] ${guild.name} ${guild.id} ${guild.prefix}`);
+      console.log(`[STARTUP] ${client.guilds.get(guild.id)} ${guild.id} ${guild.prefix}`);
     });
   });
 }
