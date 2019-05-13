@@ -8,7 +8,7 @@ const categoryObj = {
 module.exports.run = async (client, message, args, guildConf) => {
   let siEmbed = new Discord.RichEmbed()
   .setColor(message.guild.me.displayHexColor)
-  .setTitle("Command list")
+  .setTitle(`${client.user.username} Commands`)
   // .setAuthor(`${client.user.username}`, client.user.displayAvatarURL);
   client.commands.forEach(command => {
     //Only show the command if its not hidden
@@ -22,7 +22,7 @@ module.exports.run = async (client, message, args, guildConf) => {
       return siEmbed.addField(`${name.charAt(0).toUpperCase() + name.slice(1)}`,
       (alias ? `**Alias**: ${alias}\n` : ``) +
       (description ? `**Description**: ${description}\n` : ``) +
-      (usage ? `**Usage**: ${usage}\n` : ``) + '', true);
+      (usage ? `**Usage**: ${usage}\n` : ``));
     }
   });
   siEmbed.setFooter(`${client.user.username}`, client.user.displayAvatarURL);

@@ -22,5 +22,5 @@ module.exports.config = {
   category: 'util',
   usage: `say <message>`,
   accessableby: "Admins",
-  hideFromHelp: true
+  hideFromHelp: false
 }
