@@ -1,13 +1,13 @@
 module.exports.run = async (client, message, args) => {
-  var date = new Date,
-    dformat = [(date.getMonth()+1).padLeft(),
-               date.getDate().padLeft(),
-               date.getFullYear()].join('/') +' ' +
-              [date.getHours().padLeft(),
-               date.getMinutes().padLeft(),
-               date.getSeconds().padLeft()].join(':');
+  var d = new Date,
+    dformat = [d.getMonth()+1,
+       d.getDate(),
+       d.getFullYear()].join('/')+' '+
+       [d.getHours(),
+       d.getMinutes(),
+       d.getSeconds()].join(':');
 //=> dformat => '05/17/2012 10:52:21'
-  message.channel.send(date);
+  message.channel.send("" + d);
 }
 
 module.exports.config = {
