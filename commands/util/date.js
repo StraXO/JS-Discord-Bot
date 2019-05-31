@@ -10,7 +10,7 @@ module.exports.run = async (client, message, args) => {
        //Bot hosted in another country, +2 hours away.
        d.setHours(d.getHours()+2);
 
-  message.channel.send("" + d);
+  message.channel.send("" + d.toLocaleString());
 }
 
 module.exports.config = {
