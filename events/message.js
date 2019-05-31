@@ -1,4 +1,4 @@
-module.exports = async (client, message, pool, defaultSettings) => {
+module.exports = async (client, message, pool) => {
     if (!message.guild) return; // This stops if it's not a guild or itself
 
     //if in the guild
@@ -27,7 +27,7 @@ module.exports = async (client, message, pool, defaultSettings) => {
     }
 
     //set the correct prefix
-    let guildConf = client.settings.ensure(message.guild.id, defaultSettings);
+    let guildConf = client.settings.ensure(message.guild.id, client.settings.defaultSettings);
 
     if (!message.content.startsWith(guildConf.prefix) || message.author.bot) return; // Does not use prefix
 

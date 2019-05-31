@@ -1,8 +1,25 @@
-module.exports = async (client, pool, defaultSettings) => {
+const Discord = require('discord.js')
+const Enmap = require('enmap')
+const fs = require('fs')
+
+module.exports = async (client, pool) => {
   //Setup bot
   console.log(`[STARTUP] Logged in as: ${client.user.tag}`);
   //Set the bot's activity
   client.user.setActivity(`Currently serving ${client.guilds.size} servers`);
+
+  // Storing data
+  
+  client.settings = new Enmap({
+    name: "settings",
+    fetchAll: false,
+    autoFetch: true,
+    cloneLevel: 'deep'
+  });
+
+  client.settings.defaultSettings = {
+    prefix: "w!"
+  }
 
   //Database connection
   pool.connect( async (err, clientDB, done) => {
