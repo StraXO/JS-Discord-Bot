@@ -6,7 +6,8 @@ module.exports.run = async (client, message, args) => {
        [d.getHours(),
        d.getMinutes(),
        d.getSeconds()].join(':');
-//=> dformat => '05/17/2012 10:52:21'
+       //=> dformat => '05/17/2012 10:52:21'
+
   message.channel.send("" + d);
 }
 
