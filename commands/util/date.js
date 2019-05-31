@@ -7,6 +7,8 @@ module.exports.run = async (client, message, args) => {
        d.getMinutes(),
        d.getSeconds()].join(':');
        //=> dformat => '05/17/2012 10:52:21'
+       //Bot hosted in another country, +2 hours away.
+       d.setHours(d.getHours()+2);
 
   message.channel.send("" + d);
 }
