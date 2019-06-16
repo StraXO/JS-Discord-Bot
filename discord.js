@@ -14,6 +14,7 @@ client.on("guildMemberAdd", member => require('./events/guildMemberAdd.js')(clie
 // Setup commands
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
+client.setting = new Discord.Collection();
 
 fs.readdir('./commands/', (err, files) => {
   //check if the folder commands exists
@@ -28,7 +29,7 @@ fs.readdir('./commands/', (err, files) => {
 
         jsfile.forEach((f, i) => {
           //command in the directory
-          console.log(`./commands/${file}/${f}`);
+          console.log(`[Command] ./commands/${file}/${f}`);
           let pull = require(`./commands/${file}/${f}`);
 
           client.commands.set(pull.config.name, pull);
@@ -37,6 +38,19 @@ fs.readdir('./commands/', (err, files) => {
         });
       });
     });
+  });
+});
+
+fs.readdir('./settings/', (err, files) => {
+  //check if the folder commands exists
+  if (err) console.log(err)
+
+  files.forEach((file) => {
+    //settings
+    console.log(`[Setting] ./settings/${file}`);
+    let pull = require(`./settings/${file}`);
+
+    client.setting.set(pull.config.name, pull);
   });
 });
 
