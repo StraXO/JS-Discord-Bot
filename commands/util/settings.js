@@ -9,7 +9,6 @@ exports.run = (client, message, args, guildConf, pool) => {
 
     // This is array destructuring
     const [prop, ...value] = args;
-    console.log(args + " " + prop);
 
     if (!prop || prop === "show" || prop === "list" || prop === "current") {
       //show settings overview
