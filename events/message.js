@@ -1,31 +1,6 @@
 module.exports = async (client, message, pool) => {
     if (!message.guild) return; // This stops if it's not a guild or itself
 
-    //if in the guild
-    if (message.guild.name === "WeebDungeon") {
-        //and is send in these channels
-        if (message.channel.name === "🔞nsfw-general" || message.channel.name === "🔞nsfw-bots" || message.channel.name === "⭐strax-private") {
-            //check if "🔞nsfw-gallery" exists
-            const galleryChannel = message.guild.channels.find(channel => channel.name === "🔞nsfw-gallery");
-
-            if (galleryChannel) {
-                if (message.attachments.size > 0) {
-                    message.attachments.forEach(attachment => {
-                        galleryChannel.send("", { file: attachment.url });
-                    });
-                } else if (message.embeds.length > 0) {
-                    message.embeds.forEach(embed => {
-                      if (embed.url) {
-                        galleryChannel.send("", { file: embed.url });
-                      } else if (embed.image.url) {
-                        galleryChannel.send("", { file: embed.image.url });
-                      }
-                    });
-                }
-            }
-        }
-    }
-
     //set the correct prefix
     let guildConf = client.settings.ensure(message.guild.id, client.settings.defaultSettings);
 
