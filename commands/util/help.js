@@ -27,17 +27,6 @@ module.exports.run = async (client, message, args, guildConf) => {
   });
   siEmbed.setFooter(`${client.user.username}`, client.user.displayAvatarURL);
 
-  // return message.channel.send({ embed: {
-	// 	color: message.guild.me.displayHexColor,
-	// 	title: 'Commands 💯 👌 🔥',
-	// 	description: 'Wanna suggest a command? Contact the owner: StraX#2766!',
-	// 	fields: [
-	// 		{ name: `🎉 Fun Commands`, value: 'osu' },
-	// 		{ name: '🔧 Utilities', value: 'avatar, date, help, purge, say, serverinfo, settings' },
-	// 	],
-	// 	footer: { text: 'WeebMaster commands.' }
-	// } });
-
   return message.channel.send({embed: siEmbed});
 }
 

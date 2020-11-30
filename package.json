@@ -4,8 +4,8 @@
   "description": "discord bot",
   "main": "discord.js",
   "dependencies": {
-    "better-sqlite-pool": "github:eslachance/better-sqlite-pool",
-    "discord.js": "^11.4.2",
+    "better-sqlite-pool": "github:hyurl/better-sqlite-pool",
+    "discord.js": "^11.6.4",
     "enmap": "^4.8.2",
     "node-fetch": "^2.3.0",
     "node-gyp": "^3.8.0",
