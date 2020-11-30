@@ -5,10 +5,6 @@ module.exports.run = async (client, message, args) => {
     return message.channel.send("Sorry, you don't have the permission to execute the command \""+message.content+"\"");
   }
 
-  //make module.exports.run with a return value, console.log the return value here (require)
-  //this is to test permissions
-
-
   const sayMessage = args.join(" ");
   // Delete the command message (sneaky, right?). The catch just ignores the error with a cute smiley thing.
   message.delete().catch(O_o=>{});
