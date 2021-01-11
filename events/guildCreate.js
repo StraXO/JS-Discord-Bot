@@ -12,4 +12,7 @@ module.exports = (client, guild, pool) => {
     client.settings.set(guild.id, client.settings.defaultSettings.prefix, "prefix");
     console.log(`[INFO] INSERT INTO guilds (id, prefix) VALUES ('${guild.id}', '${client.settings.defaultSettings.prefix}')`);
   });
+
+  let logChannel = client.guilds.get(process.env.support_guild_id).channels.get(process.env.support_guild_channel_id);
+	logChannel !== undefined? logchannel.send('New guild using WeebMaster: ' + guild.name) : false;
 }

@@ -1,10 +1,8 @@
-const Discord = require('discord.js')
-
 exports.run = (client, message, args, guildConf, pool) => {
 
   // This is array destructuring
   const [prop, ...value] = args;
-  
+
   if (prop === "prefix") {
     //show settings for prefix
     let arguments = 0;
@@ -19,7 +17,7 @@ exports.run = (client, message, args, guildConf, pool) => {
         // try to add the value to the database
         pool.connect( async (err, clientDB, done) => {
           if(err) throw err;
-          clientDB.query(`UPDATE guilds set prefix = '${value}' WHERE id = '${message.guild.id}'`), async (err, result) => {
+          clientDB.query(`UPDATE guilds set prefix = '${value}', updated_date CURRENT_TIMESTAMP WHERE id = '${message.guild.id}'`), async (err, result) => {
             done(err);
           };
           console.log(`[DB] UPDATE guilds set prefix = '${value}' WHERE id = '${message.guild.id}'`);

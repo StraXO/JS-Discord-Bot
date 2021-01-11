@@ -2,7 +2,6 @@ require('dotenv').config();
 const Discord = require('discord.js')
 const client = new Discord.Client();
 const pool = require('./clientpool.js')
-require('./host.js')
 const fs = require('fs')
 
 // Setup events
