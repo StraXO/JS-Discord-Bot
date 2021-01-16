@@ -25,11 +25,6 @@ module.exports = async (client, pool) => {
     if(err) throw err;
     console.log('[STARTUP] Connected to PostgresSQL');
 
-    // If table does not exist then create it
-    clientDB.query('create table if not exists guilds(id text primary key, prefix text)', (err, result) => {
-      //disconnent from database on error
-      done(err);
-    });
     //Get all database information
     let result = await clientDB.query('SELECT * from guilds');
 
