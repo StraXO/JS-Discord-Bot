@@ -5,16 +5,16 @@ module.exports.run = async (client, message, args, guildConf) => {
     return message.channel.send("Sorry, you don't have the permission to execute the command \""+message.content+"\"");
   }
   // Message can't be empty
-  if (args.join(" ") == "") {
+  if (args.join(" ").trim() == "") {
     return message.channel.send("Please provide a message! Check " + guildConf.prefix + "help say").then(msg => {
       msg.delete(2000);
     });
+  } else {
+    const sayMessage = args.join(" ").trim();
+    // Delete the command message (sneaky, right?). The catch just ignores the error with a cute smiley thing.
+    message.delete().catch(O_o=>{});
+    message.channel.send(sayMessage);
   }
-
-  const sayMessage = args.join(" ");
-  // Delete the command message (sneaky, right?). The catch just ignores the error with a cute smiley thing.
-  message.delete().catch(O_o=>{});
-  message.channel.send(sayMessage);
 }
 
 module.exports.config = {
