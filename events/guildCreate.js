@@ -14,5 +14,5 @@ module.exports = (client, guild, pool) => {
   });
 
   let logChannel = client.guilds.get(process.env.support_guild_id).channels.get(process.env.support_guild_channel_id);
-	logChannel !== undefined? logchannel.send('New guild using WeebMaster: ' + guild.name) : false;
+	logChannel !== undefined? logChannel.send('New guild using WeebMaster: ' + guild.name) : false;
 }
