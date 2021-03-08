@@ -11,7 +11,6 @@ client.on("guildCreate", guild => require('./events/guildCreate.js')(client, gui
 client.on("guildDelete", guild => require('./events/guildDelete.js')(client, guild, pool));
 client.on("guildMemberAdd", member => require('./events/guildMemberAdd.js')(client, member));
 
-
 // Setup commands
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
@@ -27,7 +26,6 @@ fs.readdir('./commands/', (err, files) => {
         if (err) console.log(err)
 
         let jsfile = commands.filter(f => f.split(".").pop() === "js")
-
         jsfile.forEach((f, i) => {
           //command in the directory
           console.log(`[Command] ./commands/${file}/${f}`);

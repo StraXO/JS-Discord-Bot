@@ -1,8 +1,5 @@
 module.exports = (client, guild, pool) => {
-// This event triggers when the bot is removed from a guild.
-  console.log(`[INFO] I have been removed from: ${guild.name} (id: ${guild.id})`);
-  client.user.setActivity(`Currently serving ${client.guilds.size} servers`);
-
+  // This event triggers when the bot is removed from a guild.
   // When the bot leaves or is kicked, delete settings to prevent stale entries.
   pool.connect( async (err, clientDB, done) => {
     if(err) throw err;
@@ -18,4 +15,10 @@ module.exports = (client, guild, pool) => {
   if (client.settings !== undefined) {
     client.settings.delete(guild.id);
   }
+
+  if (guild.name !== undefined) {
+    console.log(`[INFO] I have been removed from: ${guild.name} (id: ${guild.id})`);
+  }
+  
+  client.user.setActivity(`Currently serving ${client.guilds.size} servers`);
 }
