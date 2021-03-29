@@ -1,1 +1,1 @@
-worker: node discord.js
+worker: npm install; node discord.js
