@@ -30,9 +30,9 @@ module.exports = async (client, pool) => {
 
     //Log servers and users total
     let memberCount = 0;
-    client.guilds.forEach((guild) => {
+    client.guilds.cache.forEach((guild) => {
       console.log(`[STARTUP] ${guild.name} (${guild.memberCount}) (id: ${guild.id})`);
-      memberCount += guild.members.filter(member => !member.user.bot).size;
+      memberCount += guild.members.cache.filter(member => !member.user.bot).size;
     });
 
     //Log all servers with corresponding data for debug
@@ -41,9 +41,9 @@ module.exports = async (client, pool) => {
 			console.log(`[STARTUP] ${guild.id}, ${guild.prefix}`)
     });
 
-    console.log(`[STARTUP] Servers: ${client.guilds.size} Users: ${memberCount}`);
+    console.log(`[STARTUP] Servers: ${client.guilds.cache.size} Users: ${memberCount}`);
 
 		//Set the bot's activity
-  	client.user.setActivity(`Currently serving ${client.guilds.size} servers`);
+  	client.user.setActivity(`Currently serving ${client.guilds.cache.size} servers`);
   });
 }

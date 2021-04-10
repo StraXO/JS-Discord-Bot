@@ -5,6 +5,7 @@
   "main": "discord.js",
   "dependencies": {
     "better-sqlite-pool": "github:hyurl/better-sqlite-pool",
+    "better-sqlite3": "7.1.4",
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
     "enmap": "^5.8.4",
