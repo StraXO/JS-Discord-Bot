@@ -28,22 +28,16 @@ exports.run = (client, message, args, guildConf, pool) => {
         console.log(`[INFO] The prefix has been changed to: ${value}`);
 
       } catch (e) {
-
+        console.log("[ERR] Error happened on setting prefix: ID:" + message.guild.id + " val:" + value[0] + " prop:" + prop)
       }
 
     } else {
       message.reply(`Usage: ${guildConf.prefix}settings prefix (Max 5 characters)`);
     }
     // other messages
-  } else if (!guildConf.has(message.guild.id, prop)) {
-    return message.reply(`This is not a valid setting, try ${guildConf.prefix}help settings`);
+    //(!guildConf.has(message.guild.id, prop))
   } else {
-    // Now we can finally change the value. Here we only have strings for values
-    // so we won't bother trying to make sure it's the right type and such.
-    //guildConf.set(message.guild.id, value.join(" "), prop);
-    // We can confirm everything's done to the client.
-    //message.channel.send(`Setting ${prop} has been changed to:\n\`${value.join(" ")}\``);
-    //console.log(`[INFO] ${message.guild} | Setting ${prop} has been changed to:\n\`${value.join(" ")}\``)
+    return message.reply(`This is not a valid setting, try ${guildConf.prefix}help settings`);
   }
 }
 

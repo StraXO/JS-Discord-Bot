@@ -9,7 +9,7 @@ client.on('ready', () => require('./events/ready.js')(client, pool));
 client.on('message', message => require('./events/message.js')(client, message, pool));
 client.on("guildCreate", guild => require('./events/guildCreate.js')(client, guild, pool));
 client.on("guildDelete", guild => require('./events/guildDelete.js')(client, guild, pool));
-client.on("guildMemberAdd", member => require('./events/guildMemberAdd.js')(client, member));
+//client.on("guildMemberAdd", member => require('./events/guildMemberAdd.js')(client, member));
 
 // Setup commands
 client.commands = new Discord.Collection();
