@@ -9,7 +9,7 @@
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
     "enmap": "^5.8.4",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "node-gyp": "^3.8.0",
     "pg": "^7.18.2"
   },
